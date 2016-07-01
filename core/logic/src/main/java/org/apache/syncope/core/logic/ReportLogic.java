@@ -366,10 +366,10 @@ public class ReportLogic extends AbstractExecutableLogic<ReportTO> {
         for (ReportExec exec : reportExecDAO.findAll(report, startedBefore, startedAfter, endedBefore, endedAfter)) {
             try {
                 reportExecDAO.delete(exec);
-                result.getResults().put(String.valueOf(exec.getKey()), BulkActionResult.Status.SUCCESS);
+                result.add(exec.getKey(), BulkActionResult.Status.SUCCESS);
             } catch (Exception e) {
                 LOG.error("Error deleting execution {} of report {}", exec.getKey(), key, e);
-                result.getResults().put(String.valueOf(exec.getKey()), BulkActionResult.Status.FAILURE);
+                result.add(exec.getKey(), BulkActionResult.Status.FAILURE);
             }
         }
 

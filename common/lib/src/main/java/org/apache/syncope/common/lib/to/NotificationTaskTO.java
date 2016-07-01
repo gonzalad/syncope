@@ -18,18 +18,11 @@
  */
 package org.apache.syncope.common.lib.to;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.HashSet;
 import java.util.Set;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import org.apache.syncope.common.lib.types.AnyTypeKind;
 import org.apache.syncope.common.lib.types.TraceLevel;
 
-@XmlRootElement(name = "notificationTask")
-@XmlType
 public class NotificationTaskTO extends AbstractTaskTO {
 
     private static final long serialVersionUID = 371671242591093846L;
@@ -78,9 +71,6 @@ public class NotificationTaskTO extends AbstractTaskTO {
         this.entityKey = entityKey;
     }
 
-    @XmlElementWrapper(name = "recipients")
-    @XmlElement(name = "recipient")
-    @JsonProperty("recipients")
     public Set<String> getRecipients() {
         return recipients;
     }

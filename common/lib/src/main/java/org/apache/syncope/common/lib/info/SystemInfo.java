@@ -18,16 +18,9 @@
  */
 package org.apache.syncope.common.lib.info;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import org.apache.commons.collections4.queue.CircularFifoQueue;
 import org.apache.syncope.common.lib.AbstractBaseBean;
 
-@XmlRootElement(name = "systemInfo")
-@XmlType
 public class SystemInfo extends AbstractBaseBean {
 
     private static final long serialVersionUID = -352727968865892499L;
@@ -84,15 +77,10 @@ public class SystemInfo extends AbstractBaseBean {
         this.startTime = startTime;
     }
 
-    @XmlElementWrapper(name = "load")
-    @XmlElement(name = "instant")
-    @JsonProperty("load")
     public CircularFifoQueue<LoadInstant> getLoad() {
         return load;
     }
 
-    @XmlRootElement(name = "loadInstant")
-    @XmlType
     public static class LoadInstant extends AbstractBaseBean {
 
         private static final long serialVersionUID = 1700788373758716478L;

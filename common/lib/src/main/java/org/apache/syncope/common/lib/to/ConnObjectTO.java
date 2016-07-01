@@ -19,29 +19,19 @@
 package org.apache.syncope.common.lib.to;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import org.apache.syncope.common.lib.AbstractBaseBean;
 
-@XmlRootElement(name = "connObject")
-@XmlType
 public class ConnObjectTO extends AbstractBaseBean {
 
     private static final long serialVersionUID = 5139554911265442497L;
 
     private final Set<AttrTO> attrs = new LinkedHashSet<>();
 
-    @XmlElementWrapper(name = "attrs")
-    @XmlElement(name = "attribute")
-    @JsonProperty("attrs")
     public Set<AttrTO> getAttrs() {
         return attrs;
     }

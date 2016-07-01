@@ -19,15 +19,11 @@
 package org.apache.syncope.common.lib.to;
 
 import org.apache.syncope.common.lib.AbstractBaseBean;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import org.apache.syncope.common.lib.types.PropagationTaskExecStatus;
 
 /**
  * Single propagation status.
  */
-@XmlRootElement(name = "propagationStatus")
-@XmlType
 public class PropagationStatus extends AbstractBaseBean {
 
     private static final long serialVersionUID = 3921498450222857690L;

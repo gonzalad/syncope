@@ -16,11 +16,12 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.syncope.core.rest.cxf;
+package org.apache.syncope.common.lib.jackson;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
 import java.io.File;
 import java.io.IOException;
@@ -29,18 +30,18 @@ import java.io.Writer;
 import java.util.Map;
 
 /**
- * Jackson ObjectMapper that unwraps singleton map values and enable default
- * typing for handling abstract types serialization.
+ * Jackson {@link XmlMapper} that unwraps singleton map values, configure date (de)serialization via Joda.
  */
-public class UnwrappedObjectMapper extends ObjectMapper {
+public class UnwrappedXmlMapper extends XmlMapper {
 
     private static final long serialVersionUID = -317191546835195103L;
 
-    public UnwrappedObjectMapper() {
+    public UnwrappedXmlMapper() {
         super();
 
         registerModule(new JodaModule());
-        configure(com.fasterxml.jackson.databind.SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+        configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+        configure(SerializationFeature.WRITE_EMPTY_JSON_ARRAYS, false);
     }
 
     /**

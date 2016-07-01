@@ -18,20 +18,13 @@
  */
 package org.apache.syncope.common.lib.to;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import org.apache.syncope.common.lib.AbstractBaseBean;
 
 /**
  * Metadata description of ConnId ObjectClass.
  */
-@XmlRootElement(name = "connIdObjectClass")
-@XmlType
 public class ConnIdObjectClassTO extends AbstractBaseBean {
 
     private static final long serialVersionUID = -3719658595689434648L;
@@ -68,9 +61,6 @@ public class ConnIdObjectClassTO extends AbstractBaseBean {
         this.auxiliary = auxiliary;
     }
 
-    @XmlElementWrapper(name = "attributes")
-    @XmlElement(name = "attribute")
-    @JsonProperty("attributes")
     public List<String> getAttributes() {
         return attributes;
     }

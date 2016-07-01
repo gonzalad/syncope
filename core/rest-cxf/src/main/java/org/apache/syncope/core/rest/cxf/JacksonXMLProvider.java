@@ -16,8 +16,18 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-@XmlSchema(namespace = SyncopeConstants.NAMESPACE)
-package org.apache.syncope.common.lib.types;
+package org.apache.syncope.core.rest.cxf;
 
-import javax.xml.bind.annotation.XmlSchema;
-import org.apache.syncope.common.lib.SyncopeConstants;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.Produces;
+import javax.ws.rs.ext.Provider;
+
+/**
+ * Extends {@link com.fasterxml.jackson.jaxrs.xml.JacksonXMLProvider} only for setting correct {@link Produces} and
+ * {link Consumes} annotations for usage with Apache CXF.
+ */
+@Produces({ "application/xml", "application/*+xml", "text/xml" })
+@Consumes({ "application/xml", "application/*+xml", "text/xml" })
+@Provider
+public class JacksonXMLProvider extends com.fasterxml.jackson.jaxrs.xml.JacksonXMLProvider {
+}

@@ -19,7 +19,6 @@
 package org.apache.syncope.common.lib.to;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -27,16 +26,10 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import javax.ws.rs.PathParam;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import org.apache.syncope.common.lib.AbstractBaseBean;
 import org.apache.syncope.common.lib.types.ConnConfProperty;
 import org.apache.syncope.common.lib.types.ConnectorCapability;
 
-@XmlRootElement(name = "connInstance")
-@XmlType
 public class ConnInstanceTO extends AbstractBaseBean implements EntityTO {
 
     private static final long serialVersionUID = 2707778645445168671L;
@@ -104,9 +97,6 @@ public class ConnInstanceTO extends AbstractBaseBean implements EntityTO {
         this.version = version;
     }
 
-    @XmlElementWrapper(name = "conf")
-    @XmlElement(name = "property")
-    @JsonProperty("conf")
     public Set<ConnConfProperty> getConf() {
         return this.conf;
     }
@@ -123,9 +113,6 @@ public class ConnInstanceTO extends AbstractBaseBean implements EntityTO {
         return Collections.unmodifiableMap(result);
     }
 
-    @XmlElementWrapper(name = "capabilities")
-    @XmlElement(name = "capability")
-    @JsonProperty("capabilities")
     public Set<ConnectorCapability> getCapabilities() {
         return capabilities;
     }

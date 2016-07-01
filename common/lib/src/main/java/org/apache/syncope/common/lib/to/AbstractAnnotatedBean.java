@@ -21,13 +21,11 @@ package org.apache.syncope.common.lib.to;
 import org.apache.syncope.common.lib.AbstractBaseBean;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Date;
-import javax.xml.bind.annotation.XmlType;
 import org.apache.commons.lang3.StringUtils;
 
 /**
  * Abstract wrapper for common system information.
  */
-@XmlType
 public class AbstractAnnotatedBean extends AbstractBaseBean {
 
     private static final long serialVersionUID = -930797879027642457L;

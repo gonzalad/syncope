@@ -18,16 +18,9 @@
  */
 package org.apache.syncope.common.lib.policy;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "passwordPolicy")
-@XmlType
 public class PasswordPolicyTO extends AbstractPolicyTO implements ComposablePolicy<AbstractPasswordRuleConf> {
 
     private static final long serialVersionUID = -5606086441294799690L;
@@ -54,9 +47,6 @@ public class PasswordPolicyTO extends AbstractPolicyTO implements ComposablePoli
         this.historyLength = historyLength;
     }
 
-    @XmlElementWrapper(name = "ruleConfs")
-    @XmlElement(name = "ruleConf")
-    @JsonProperty("ruleConfs")
     @Override
     public List<AbstractPasswordRuleConf> getRuleConfs() {
         return ruleConfs;

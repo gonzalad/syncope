@@ -18,19 +18,12 @@
  */
 package org.apache.syncope.common.lib.to;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ws.rs.PathParam;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import org.apache.syncope.common.lib.report.AbstractReportletConf;
 
-@XmlRootElement(name = "report")
-@XmlType
 public class ReportTO extends AbstractStartEndBean implements EntityTO {
 
     private static final long serialVersionUID = 5274568072084814410L;
@@ -74,9 +67,6 @@ public class ReportTO extends AbstractStartEndBean implements EntityTO {
         this.name = name;
     }
 
-    @XmlElementWrapper(name = "reportletConfs")
-    @XmlElement(name = "reportletConf")
-    @JsonProperty("reportletConfs")
     public List<AbstractReportletConf> getReportletConfs() {
         return reportletConfs;
     }
@@ -89,9 +79,6 @@ public class ReportTO extends AbstractStartEndBean implements EntityTO {
         this.cronExpression = cronExpression;
     }
 
-    @XmlElementWrapper(name = "executions")
-    @XmlElement(name = "execution")
-    @JsonProperty("executions")
     public List<ExecTO> getExecutions() {
         return executions;
     }

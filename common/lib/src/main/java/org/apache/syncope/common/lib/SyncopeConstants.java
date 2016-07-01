@@ -25,8 +25,6 @@ import java.util.regex.Pattern;
 
 public final class SyncopeConstants {
 
-    public static final String NAMESPACE = "http://syncope.apache.org/2.0";
-
     public static final String MASTER_DOMAIN = "Master";
 
     public static final String ROOT_REALM = "/";

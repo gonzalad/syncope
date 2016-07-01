@@ -19,7 +19,6 @@
 package org.apache.syncope.client.console.rest;
 
 import java.util.List;
-import java.util.Map;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 import org.apache.commons.lang3.StringUtils;
@@ -89,7 +88,6 @@ public class UserRestClient extends AbstractAnyRestClient<UserTO, UserPatch> {
         BulkActionResult result;
         synchronized (this) {
             result = new BulkActionResult();
-            Map<String, BulkActionResult.Status> res = result.getResults();
             UserService service = getService(etag, UserService.class);
 
             @SuppressWarnings("unchecked")
@@ -97,14 +95,14 @@ public class UserRestClient extends AbstractAnyRestClient<UserTO, UserPatch> {
                     readEntity(ProvisioningResult.class);
 
             if (statusPatch.isOnSyncope()) {
-                res.put(StringUtils.capitalize(Constants.SYNCOPE),
+                result.add(StringUtils.capitalize(Constants.SYNCOPE),
                         "suspended".equalsIgnoreCase(provisions.getEntity().getStatus())
                         ? BulkActionResult.Status.SUCCESS
                         : BulkActionResult.Status.FAILURE);
             }
 
             for (PropagationStatus status : provisions.getPropagationStatuses()) {
-                res.put(status.getResource(), BulkActionResult.Status.valueOf(status.getStatus().name()));
+                result.add(status.getResource(), BulkActionResult.Status.valueOf(status.getStatus().name()));
             }
             resetClient(UserService.class);
         }
@@ -119,7 +117,6 @@ public class UserRestClient extends AbstractAnyRestClient<UserTO, UserPatch> {
         BulkActionResult result;
         synchronized (this) {
             result = new BulkActionResult();
-            Map<String, BulkActionResult.Status> res = result.getResults();
             UserService service = getService(etag, UserService.class);
 
             @SuppressWarnings("unchecked")
@@ -127,14 +124,14 @@ public class UserRestClient extends AbstractAnyRestClient<UserTO, UserPatch> {
                     readEntity(ProvisioningResult.class);
 
             if (statusPatch.isOnSyncope()) {
-                res.put(StringUtils.capitalize(Constants.SYNCOPE),
+                result.add(StringUtils.capitalize(Constants.SYNCOPE),
                         "active".equalsIgnoreCase(provisions.getEntity().getStatus())
                         ? BulkActionResult.Status.SUCCESS
                         : BulkActionResult.Status.FAILURE);
             }
 
             for (PropagationStatus status : provisions.getPropagationStatuses()) {
-                res.put(status.getResource(), BulkActionResult.Status.valueOf(status.getStatus().name()));
+                result.add(status.getResource(), BulkActionResult.Status.valueOf(status.getStatus().name()));
             }
             resetClient(UserService.class);
         }

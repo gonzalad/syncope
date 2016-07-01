@@ -16,8 +16,16 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-@XmlSchema(namespace = SyncopeConstants.NAMESPACE)
-package org.apache.syncope.common.lib.patch;
+package org.apache.syncope.common.lib;
 
-import javax.xml.bind.annotation.XmlSchema;
-import org.apache.syncope.common.lib.SyncopeConstants;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.syncope.common.lib.jackson.UnwrappedXmlMapper;
+
+public class XMLTest extends AbstractTest {
+
+    @Override
+    protected ObjectMapper getObjectMapper() {
+        return new UnwrappedXmlMapper();
+    }
+
+}

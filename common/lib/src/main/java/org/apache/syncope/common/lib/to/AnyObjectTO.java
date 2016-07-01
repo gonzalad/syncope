@@ -19,20 +19,13 @@
 package org.apache.syncope.common.lib.to;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import org.apache.commons.lang3.tuple.Pair;
 
-@XmlRootElement(name = "anyObject")
-@XmlType
 public class AnyObjectTO extends AnyTO implements GroupableRelatableTO {
 
     private static final long serialVersionUID = 8841697496476959639L;
@@ -53,9 +46,6 @@ public class AnyObjectTO extends AnyTO implements GroupableRelatableTO {
         this.name = name;
     }
 
-    @XmlElementWrapper(name = "relationships")
-    @XmlElement(name = "relationship")
-    @JsonProperty("relationships")
     @Override
     public List<RelationshipTO> getRelationships() {
         return relationships;
@@ -73,9 +63,6 @@ public class AnyObjectTO extends AnyTO implements GroupableRelatableTO {
         return result;
     }
 
-    @XmlElementWrapper(name = "memberships")
-    @XmlElement(name = "membership")
-    @JsonProperty("memberships")
     @Override
     public List<MembershipTO> getMemberships() {
         return memberships;
@@ -93,9 +80,6 @@ public class AnyObjectTO extends AnyTO implements GroupableRelatableTO {
         return result;
     }
 
-    @XmlElementWrapper(name = "dynGroups")
-    @XmlElement(name = "role")
-    @JsonProperty("dynGroups")
     @Override
     public List<String> getDynGroups() {
         return dynGroups;

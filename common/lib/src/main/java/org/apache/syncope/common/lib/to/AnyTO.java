@@ -19,7 +19,6 @@
 package org.apache.syncope.common.lib.to;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,13 +27,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.bind.annotation.XmlType;
 
-@XmlType
-@XmlSeeAlso({ UserTO.class, GroupTO.class, AnyObjectTO.class })
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "@class")
 public abstract class AnyTO extends AbstractAnnotatedBean implements EntityTO, AttributableTO {
 
@@ -92,16 +85,10 @@ public abstract class AnyTO extends AbstractAnnotatedBean implements EntityTO, A
         this.status = status;
     }
 
-    @XmlElementWrapper(name = "auxClasses")
-    @XmlElement(name = "class")
-    @JsonProperty("auxClasses")
     public List<String> getAuxClasses() {
         return auxClasses;
     }
 
-    @XmlElementWrapper(name = "plainAttrs")
-    @XmlElement(name = "attribute")
-    @JsonProperty("plainAttrs")
     @Override
     public Set<AttrTO> getPlainAttrs() {
         return plainAttrs;
@@ -118,9 +105,6 @@ public abstract class AnyTO extends AbstractAnnotatedBean implements EntityTO, A
         return Collections.unmodifiableMap(result);
     }
 
-    @XmlElementWrapper(name = "derAttrs")
-    @XmlElement(name = "attribute")
-    @JsonProperty("derAttrs")
     @Override
     public Set<AttrTO> getDerAttrs() {
         return derAttrs;
@@ -137,9 +121,6 @@ public abstract class AnyTO extends AbstractAnnotatedBean implements EntityTO, A
         return Collections.unmodifiableMap(result);
     }
 
-    @XmlElementWrapper(name = "virAttrs")
-    @XmlElement(name = "attribute")
-    @JsonProperty("virAttrs")
     @Override
     public Set<AttrTO> getVirAttrs() {
         return virAttrs;
@@ -156,9 +137,6 @@ public abstract class AnyTO extends AbstractAnnotatedBean implements EntityTO, A
         return Collections.unmodifiableMap(result);
     }
 
-    @XmlElementWrapper(name = "resources")
-    @XmlElement(name = "resource")
-    @JsonProperty("resources")
     public Set<String> getResources() {
         return resources;
     }

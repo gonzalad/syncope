@@ -19,12 +19,8 @@
 package org.apache.syncope.common.lib.patch;
 
 import javax.ws.rs.PathParam;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import org.apache.syncope.common.lib.types.ResourceAssociationAction;
 
-@XmlRootElement(name = "associationPatch")
-@XmlType
 public class AssociationPatch extends PasswordPatch {
 
     private static final long serialVersionUID = 6295778399633883767L;

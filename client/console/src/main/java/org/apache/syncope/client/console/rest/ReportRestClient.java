@@ -144,13 +144,13 @@ public class ReportRestClient extends BaseRestClient
             case DELETE:
                 for (String target : action.getTargets()) {
                     delete(target);
-                    result.getResults().put(target, BulkActionResult.Status.SUCCESS);
+                    result.add(target, BulkActionResult.Status.SUCCESS);
                 }
                 break;
             case EXECUTE:
                 for (String target : action.getTargets()) {
                     startExecution(target, new Date());
-                    result.getResults().put(target, BulkActionResult.Status.SUCCESS);
+                    result.add(target, BulkActionResult.Status.SUCCESS);
                 }
                 break;
             default:

@@ -19,6 +19,7 @@
 package org.apache.syncope.client.console.wicket.extensions.markup.html.repeater.data.table;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
 import org.apache.syncope.common.lib.to.BulkActionResult;
 import org.apache.syncope.common.lib.to.BulkActionResult.Status;
 import org.apache.wicket.Component;
@@ -65,14 +66,14 @@ public class BulkActionResultColumn<T, S> extends AbstractColumn<T, S> {
     @Override
     public void populateItem(final Item<ICellPopulator<T>> item, final String componentId, final IModel<T> rowModel) {
         try {
-            final Object id = BeanUtils.getPropertyDescriptor(rowModel.getObject().getClass(), keyFieldName).
+            Object id = BeanUtils.getPropertyDescriptor(rowModel.getObject().getClass(), keyFieldName).
                     getReadMethod().invoke(rowModel.getObject(), new Object[0]);
-            final Status status = results.getResults().containsKey(id.toString())
-                    ? results.getResults().get(id.toString())
+            Map<String, Status> bulkResultMap = results.getResultMap();
+            Status status = bulkResultMap.containsKey(id.toString())
+                    ? bulkResultMap.get(id.toString())
                     : Status.NOT_ATTEMPTED;
 
             item.add(new Label(componentId, new StringResourceModel(status.name(), item, new Model<>(status.name()))));
-
         } catch (BeansException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             LOG.error("Errore retrieving target id value", e);
         }

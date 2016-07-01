@@ -172,10 +172,10 @@ public class ResourceServiceImpl extends AbstractServiceImpl implements Resource
                     default:
                 }
 
-                result.getResults().put(anyKey, BulkActionResult.Status.SUCCESS);
+                result.add(anyKey, BulkActionResult.Status.SUCCESS);
             } catch (Exception e) {
                 LOG.warn("While executing {} on {} {}", patch.getAction(), patch.getAnyTypeKey(), anyKey, e);
-                result.getResults().put(anyKey, BulkActionResult.Status.FAILURE);
+                result.add(anyKey, BulkActionResult.Status.FAILURE);
             }
         }
 
@@ -189,10 +189,10 @@ public class ResourceServiceImpl extends AbstractServiceImpl implements Resource
         if (bulkAction.getType() == BulkAction.Type.DELETE) {
             for (String key : bulkAction.getTargets()) {
                 try {
-                    result.getResults().put(logic.delete(key).getKey(), BulkActionResult.Status.SUCCESS);
+                    result.add(logic.delete(key).getKey(), BulkActionResult.Status.SUCCESS);
                 } catch (Exception e) {
                     LOG.error("Error performing delete for resource {}", key, e);
-                    result.getResults().put(key, BulkActionResult.Status.FAILURE);
+                    result.add(key, BulkActionResult.Status.FAILURE);
                 }
             }
         }

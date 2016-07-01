@@ -18,18 +18,11 @@
  */
 package org.apache.syncope.common.lib.report;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import org.apache.syncope.common.lib.types.TraceLevel;
 
-@XmlRootElement(name = "staticReportletConf")
-@XmlType
 public class StaticReportletConf extends AbstractReportletConf {
 
     private static final long serialVersionUID = -4814950086361753689L;
@@ -74,9 +67,6 @@ public class StaticReportletConf extends AbstractReportletConf {
         this.doubleField = doubleField;
     }
 
-    @XmlElementWrapper(name = "listField")
-    @XmlElement(name = "field")
-    @JsonProperty("listField")
     public List<String> getListField() {
         return listField;
     }

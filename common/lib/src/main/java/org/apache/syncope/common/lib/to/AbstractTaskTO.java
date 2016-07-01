@@ -18,21 +18,11 @@
  */
 package org.apache.syncope.common.lib.to;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-
 import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.PathParam;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "abstractTask")
-@XmlType
-@XmlSeeAlso({ PropagationTaskTO.class, SchedTaskTO.class, NotificationTaskTO.class })
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "@class")
 public abstract class AbstractTaskTO extends AbstractStartEndBean implements EntityTO {
 
@@ -63,9 +53,6 @@ public abstract class AbstractTaskTO extends AbstractStartEndBean implements Ent
         this.latestExecStatus = latestExecStatus;
     }
 
-    @XmlElementWrapper(name = "executions")
-    @XmlElement(name = "execution")
-    @JsonProperty("executions")
     public List<ExecTO> getExecutions() {
         return executions;
     }

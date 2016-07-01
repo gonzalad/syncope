@@ -18,19 +18,12 @@
  */
 package org.apache.syncope.common.lib.to;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import org.apache.commons.collections4.IterableUtils;
 import org.apache.commons.collections4.Predicate;
 import org.apache.syncope.common.lib.AbstractBaseBean;
 
-@XmlRootElement(name = "mapping")
-@XmlType
 public class MappingTO extends AbstractBaseBean {
 
     private static final long serialVersionUID = 8447688036282611118L;
@@ -72,9 +65,6 @@ public class MappingTO extends AbstractBaseBean {
                 : addConnObjectKeyItem(connObjectKeyItem);
     }
 
-    @XmlElementWrapper(name = "items")
-    @XmlElement(name = "item")
-    @JsonProperty("items")
     public List<MappingItemTO> getItems() {
         return items;
     }
@@ -87,9 +77,6 @@ public class MappingTO extends AbstractBaseBean {
         return this.items.remove(item);
     }
 
-    @XmlElementWrapper(name = "linkingItems")
-    @XmlElement(name = "item")
-    @JsonProperty("linkingItems")
     public List<MappingItemTO> getLinkingItems() {
         return linkingItems;
     }

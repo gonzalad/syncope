@@ -18,16 +18,9 @@
  */
 package org.apache.syncope.common.lib.policy;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "accountPolicy")
-@XmlType
 public class AccountPolicyTO extends AbstractPolicyTO implements ComposablePolicy<AbstractAccountRuleConf> {
 
     private static final long serialVersionUID = -1557150042828800134L;
@@ -56,17 +49,11 @@ public class AccountPolicyTO extends AbstractPolicyTO implements ComposablePolic
         this.maxAuthenticationAttempts = maxAuthenticationAttempts;
     }
 
-    @XmlElementWrapper(name = "ruleConfs")
-    @XmlElement(name = "ruleConf")
-    @JsonProperty("ruleConfs")
     @Override
     public List<AbstractAccountRuleConf> getRuleConfs() {
         return ruleConfs;
     }
 
-    @XmlElementWrapper(name = "passthroughResources")
-    @XmlElement(name = "passthroughResource")
-    @JsonProperty("passthroughResources")
     public List<String> getPassthroughResources() {
         return passthroughResources;
     }

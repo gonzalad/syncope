@@ -18,22 +18,17 @@
  */
 package org.apache.syncope.client.lib;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.joda.JodaModule;
-import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
+import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
+import com.fasterxml.jackson.jaxrs.xml.JacksonXMLProvider;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.ws.rs.core.MediaType;
-import javax.xml.bind.Marshaller;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.cxf.feature.Feature;
 import org.apache.cxf.feature.LoggingFeature;
-import org.apache.cxf.jaxrs.provider.JAXBElementProvider;
-import org.apache.cxf.staxutils.DocumentDepthProperties;
-import org.apache.syncope.common.lib.policy.AbstractPolicyTO;
+import org.apache.syncope.common.lib.jackson.UnwrappedObjectMapper;
+import org.apache.syncope.common.lib.jackson.UnwrappedXmlMapper;
 import org.apache.syncope.common.rest.api.DateParamConverterProvider;
 import org.apache.syncope.common.rest.api.RESTHeaders;
 
@@ -65,9 +60,9 @@ public class SyncopeClientFactoryBean {
         }
     }
 
-    private JacksonJaxbJsonProvider jsonProvider;
+    private JacksonJsonProvider jsonProvider;
 
-    private JAXBElementProvider<?> jaxbProvider;
+    private JacksonXMLProvider xmlProvider;
 
     private RestClientExceptionMapper exceptionMapper;
 
@@ -81,30 +76,12 @@ public class SyncopeClientFactoryBean {
 
     private RestClientFactoryBean restClientFactoryBean;
 
-    protected JacksonJaxbJsonProvider defaultJsonProvider() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new JodaModule());
-        objectMapper.configure(com.fasterxml.jackson.databind.SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-        return new JacksonJaxbJsonProvider(objectMapper, JacksonJaxbJsonProvider.DEFAULT_ANNOTATIONS);
+    protected JacksonJsonProvider defaultJsonProvider() {
+        return new JacksonJsonProvider(new UnwrappedObjectMapper(), JacksonJsonProvider.BASIC_ANNOTATIONS);
     }
 
-    @SuppressWarnings({ "rawtypes" })
-    protected JAXBElementProvider<?> defaultJAXBProvider() {
-        JAXBElementProvider<?> defaultJAXBProvider = new JAXBElementProvider();
-
-        DocumentDepthProperties depthProperties = new DocumentDepthProperties();
-        depthProperties.setInnerElementCountThreshold(500);
-        defaultJAXBProvider.setDepthProperties(depthProperties);
-
-        Map<String, Object> marshallerProperties = new HashMap<>();
-        marshallerProperties.put(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-        defaultJAXBProvider.setMarshallerProperties(marshallerProperties);
-
-        Map<String, String> collectionWrapperMap = new HashMap<>();
-        collectionWrapperMap.put(AbstractPolicyTO.class.getName(), "policies");
-        defaultJAXBProvider.setCollectionWrapperMap(collectionWrapperMap);
-
-        return defaultJAXBProvider;
+    protected JacksonXMLProvider defaultXMLProvider() {
+        return new JacksonXMLProvider(new UnwrappedXmlMapper(), JacksonXMLProvider.BASIC_ANNOTATIONS);
     }
 
     protected RestClientExceptionMapper defaultExceptionMapper() {
@@ -132,7 +109,7 @@ public class SyncopeClientFactoryBean {
 
         List<Object> providers = new ArrayList<>(4);
         providers.add(new DateParamConverterProvider());
-        providers.add(getJaxbProvider());
+        providers.add(getXMLProvider());
         providers.add(getJsonProvider());
         providers.add(getExceptionMapper());
         defaultRestClientFactoryBean.setProviders(providers);
@@ -140,24 +117,24 @@ public class SyncopeClientFactoryBean {
         return defaultRestClientFactoryBean;
     }
 
-    public JacksonJaxbJsonProvider getJsonProvider() {
+    public JacksonJsonProvider getJsonProvider() {
         return jsonProvider == null
                 ? defaultJsonProvider()
                 : jsonProvider;
     }
 
-    public void setJsonProvider(final JacksonJaxbJsonProvider jsonProvider) {
+    public void setJsonProvider(final JacksonJsonProvider jsonProvider) {
         this.jsonProvider = jsonProvider;
     }
 
-    public JAXBElementProvider<?> getJaxbProvider() {
-        return jaxbProvider == null
-                ? defaultJAXBProvider()
-                : jaxbProvider;
+    public JacksonXMLProvider getXMLProvider() {
+        return xmlProvider == null
+                ? defaultXMLProvider()
+                : xmlProvider;
     }
 
-    public SyncopeClientFactoryBean setJaxbProvider(final JAXBElementProvider<?> jaxbProvider) {
-        this.jaxbProvider = jaxbProvider;
+    public SyncopeClientFactoryBean setXMLProvider(final JacksonXMLProvider xmlProvider) {
+        this.xmlProvider = xmlProvider;
         return this;
     }
 

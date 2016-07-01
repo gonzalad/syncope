@@ -343,10 +343,10 @@ public class TaskLogic extends AbstractExecutableLogic<AbstractTaskTO> {
         for (TaskExec exec : taskExecDAO.findAll(task, startedBefore, startedAfter, endedBefore, endedAfter)) {
             try {
                 taskExecDAO.delete(exec);
-                result.getResults().put(String.valueOf(exec.getKey()), BulkActionResult.Status.SUCCESS);
+                result.add(exec.getKey(), BulkActionResult.Status.SUCCESS);
             } catch (Exception e) {
                 LOG.error("Error deleting execution {} of task {}", exec.getKey(), key, e);
-                result.getResults().put(String.valueOf(exec.getKey()), BulkActionResult.Status.FAILURE);
+                result.add(exec.getKey(), BulkActionResult.Status.FAILURE);
             }
         }
 

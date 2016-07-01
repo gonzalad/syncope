@@ -18,15 +18,10 @@
  */
 package org.apache.syncope.common.lib.to;
 
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.syncope.common.lib.types.AttrSchemaType;
 import org.apache.syncope.common.lib.types.CipherAlgorithm;
 
-@XmlRootElement(name = "schema")
-@XmlType
 public class PlainSchemaTO extends AbstractSchemaTO {
 
     private static final long serialVersionUID = -8133983392476990308L;

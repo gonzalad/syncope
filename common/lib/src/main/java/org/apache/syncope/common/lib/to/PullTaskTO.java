@@ -18,21 +18,10 @@
  */
 package org.apache.syncope.common.lib.to;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.HashMap;
 import java.util.Map;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import org.apache.syncope.common.lib.jaxb.XmlGenericMapAdapter;
 import org.apache.syncope.common.lib.types.PullMode;
 
-@XmlRootElement(name = "pullTask")
-@XmlType
-@XmlAccessorType(XmlAccessType.FIELD)
 public class PullTaskTO extends AbstractProvisioningTaskTO implements TemplatableTO {
 
     private static final long serialVersionUID = -2143537546915809017L;
@@ -43,8 +32,6 @@ public class PullTaskTO extends AbstractProvisioningTaskTO implements Templatabl
 
     private String destinationRealm;
 
-    @XmlJavaTypeAdapter(XmlGenericMapAdapter.class)
-    @JsonIgnore
     private final Map<String, AnyTO> templates = new HashMap<>();
 
     public PullMode getPullMode() {
@@ -71,7 +58,6 @@ public class PullTaskTO extends AbstractProvisioningTaskTO implements Templatabl
         this.destinationRealm = destinationRealm;
     }
 
-    @JsonProperty
     @Override
     public Map<String, AnyTO> getTemplates() {
         return templates;

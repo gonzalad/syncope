@@ -25,16 +25,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import javax.ws.rs.PathParam;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.apache.syncope.common.lib.AbstractBaseBean;
-import org.apache.syncope.common.lib.jaxb.XmlGenericMapAdapter;
 
-@XmlRootElement(name = "realm")
-@XmlType
 public class RealmTO extends AbstractBaseBean implements EntityTO, TemplatableTO {
 
     private static final long serialVersionUID = 516330662956254391L;
@@ -53,7 +45,6 @@ public class RealmTO extends AbstractBaseBean implements EntityTO, TemplatableTO
 
     private final Set<String> actionsClassNames = new HashSet<>();
 
-    @XmlJavaTypeAdapter(XmlGenericMapAdapter.class)
     @JsonIgnore
     private final Map<String, AnyTO> templates = new HashMap<>();
 
@@ -110,9 +101,6 @@ public class RealmTO extends AbstractBaseBean implements EntityTO, TemplatableTO
         this.passwordPolicy = passwordPolicy;
     }
 
-    @XmlElementWrapper(name = "actionsClassNames")
-    @XmlElement(name = "actionsClassName")
-    @JsonProperty("actionsClassNames")
     public Set<String> getActionsClassNames() {
         return actionsClassNames;
     }
@@ -123,9 +111,6 @@ public class RealmTO extends AbstractBaseBean implements EntityTO, TemplatableTO
         return templates;
     }
 
-    @XmlElementWrapper(name = "resources")
-    @XmlElement(name = "resource")
-    @JsonProperty("resources")
     public Set<String> getResources() {
         return resources;
     }

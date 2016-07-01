@@ -22,13 +22,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.HashMap;
 import java.util.Map;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.apache.syncope.common.lib.AbstractBaseBean;
-import org.apache.syncope.common.lib.jaxb.XmlGenericMapAdapter;
 import org.apache.syncope.common.lib.types.ConflictResolutionAction;
 
-@XmlType
 public class PullPolicySpec extends AbstractBaseBean {
 
     private static final long serialVersionUID = -3144027171719498127L;
@@ -43,7 +39,6 @@ public class PullPolicySpec extends AbstractBaseBean {
      * {@code PlainAttrsPullCorrelationRule}</li>
      * </ol>
      */
-    @XmlJavaTypeAdapter(XmlGenericMapAdapter.class)
     @JsonIgnore
     private final Map<String, String> correlationRules = new HashMap<>();
 

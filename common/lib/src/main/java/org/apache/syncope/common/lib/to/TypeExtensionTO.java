@@ -18,17 +18,10 @@
  */
 package org.apache.syncope.common.lib.to;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import org.apache.syncope.common.lib.AbstractBaseBean;
 
-@XmlRootElement(name = "typeExtension")
-@XmlType
 public class TypeExtensionTO extends AbstractBaseBean {
 
     private static final long serialVersionUID = -5422809645030924811L;
@@ -45,9 +38,6 @@ public class TypeExtensionTO extends AbstractBaseBean {
         this.anyType = anyType;
     }
 
-    @XmlElementWrapper(name = "auxClasses")
-    @XmlElement(name = "class")
-    @JsonProperty("auxClasses")
     public List<String> getAuxClasses() {
         return auxClasses;
     }

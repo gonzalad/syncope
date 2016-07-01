@@ -89,6 +89,6 @@ public class UserSyncopeOperations {
             bulkAction.getTargets().add(String.valueOf(user.getKey()));
         }
         final BulkActionResult bulkResult = userService.bulk(bulkAction).readEntity(BulkActionResult.class);
-        return bulkResult.getResults();
+        return bulkResult.getResultMap();
     }
 }

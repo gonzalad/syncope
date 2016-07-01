@@ -18,19 +18,12 @@
  */
 package org.apache.syncope.common.lib.to;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.PathParam;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import org.apache.syncope.common.lib.AbstractBaseBean;
 import org.apache.syncope.common.lib.types.AnyTypeKind;
 
-@XmlRootElement(name = "anyType")
-@XmlType
 public class AnyTypeTO extends AbstractBaseBean implements EntityTO {
 
     private static final long serialVersionUID = 6771657557616874373L;
@@ -60,9 +53,6 @@ public class AnyTypeTO extends AbstractBaseBean implements EntityTO {
         this.kind = kind;
     }
 
-    @XmlElementWrapper(name = "classes")
-    @XmlElement(name = "class")
-    @JsonProperty("classes")
     public List<String> getClasses() {
         return classes;
     }

@@ -18,18 +18,11 @@
  */
 package org.apache.syncope.common.lib.to;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.PathParam;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import org.apache.syncope.common.lib.AbstractBaseBean;
 
-@XmlRootElement(name = "anyTypeClass")
-@XmlType
 public class AnyTypeClassTO extends AbstractBaseBean implements EntityTO {
 
     private static final long serialVersionUID = -591757688607551266L;
@@ -55,30 +48,18 @@ public class AnyTypeClassTO extends AbstractBaseBean implements EntityTO {
         this.key = key;
     }
 
-    @XmlElementWrapper(name = "plainSchemas")
-    @XmlElement(name = "schema")
-    @JsonProperty("plainSchemas")
     public List<String> getPlainSchemas() {
         return plainSchemas;
     }
 
-    @XmlElementWrapper(name = "derSchemas")
-    @XmlElement(name = "schema")
-    @JsonProperty("derSchemas")
     public List<String> getDerSchemas() {
         return derSchemas;
     }
 
-    @XmlElementWrapper(name = "virSchemas")
-    @XmlElement(name = "schema")
-    @JsonProperty("virSchemas")
     public List<String> getVirSchemas() {
         return virSchemas;
     }
 
-    @XmlElementWrapper(name = "inUseByTypes")
-    @XmlElement(name = "anyTypeClass")
-    @JsonProperty("inUseByTypes")
     public List<String> getInUseByTypes() {
         return inUseByTypes;
     }

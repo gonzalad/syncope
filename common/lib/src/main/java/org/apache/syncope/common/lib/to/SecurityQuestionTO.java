@@ -19,12 +19,8 @@
 package org.apache.syncope.common.lib.to;
 
 import javax.ws.rs.PathParam;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import org.apache.syncope.common.lib.AbstractBaseBean;
 
-@XmlRootElement(name = "securityQuestion")
-@XmlType
 public class SecurityQuestionTO extends AbstractBaseBean implements EntityTO {
 
     private static final long serialVersionUID = 5969810939993556530L;

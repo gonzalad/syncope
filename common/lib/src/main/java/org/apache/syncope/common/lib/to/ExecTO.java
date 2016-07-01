@@ -18,12 +18,8 @@
  */
 package org.apache.syncope.common.lib.to;
 
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import org.apache.syncope.common.lib.types.JobType;
 
-@XmlRootElement(name = "exec")
-@XmlType()
 public class ExecTO extends AbstractStartEndBean implements EntityTO {
 
     private static final long serialVersionUID = -4621191979198357081L;

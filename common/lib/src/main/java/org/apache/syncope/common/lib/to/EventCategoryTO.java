@@ -18,18 +18,11 @@
  */
 package org.apache.syncope.common.lib.to;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import org.apache.syncope.common.lib.AbstractBaseBean;
 import org.apache.syncope.common.lib.types.AuditElements;
 
-@XmlRootElement(name = "eventCategory")
-@XmlType
 public class EventCategoryTO extends AbstractBaseBean {
 
     private static final long serialVersionUID = -4340060002701633401L;
@@ -83,9 +76,6 @@ public class EventCategoryTO extends AbstractBaseBean {
         this.subcategory = subcategory;
     }
 
-    @XmlElementWrapper(name = "events")
-    @XmlElement(name = "event")
-    @JsonProperty("events")
     public List<String> getEvents() {
         return events;
     }

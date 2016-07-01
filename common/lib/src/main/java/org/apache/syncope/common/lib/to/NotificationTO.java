@@ -25,17 +25,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.ws.rs.PathParam;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.apache.syncope.common.lib.AbstractBaseBean;
-import org.apache.syncope.common.lib.jaxb.XmlGenericMapAdapter;
 import org.apache.syncope.common.lib.types.TraceLevel;
 
-@XmlRootElement(name = "notification")
-@XmlType
 public class NotificationTO extends AbstractBaseBean implements EntityTO {
 
     private static final long serialVersionUID = -6145117115632592612L;
@@ -44,7 +36,6 @@ public class NotificationTO extends AbstractBaseBean implements EntityTO {
 
     private final List<String> events = new ArrayList<>();
 
-    @XmlJavaTypeAdapter(XmlGenericMapAdapter.class)
     @JsonIgnore
     private final Map<String, String> abouts = new HashMap<>();
 
@@ -73,16 +64,10 @@ public class NotificationTO extends AbstractBaseBean implements EntityTO {
         return abouts;
     }
 
-    @XmlElementWrapper(name = "events")
-    @XmlElement(name = "event")
-    @JsonProperty("events")
     public List<String> getEvents() {
         return events;
     }
 
-    @XmlElementWrapper(name = "staticRecipients")
-    @XmlElement(name = "staticRecipient")
-    @JsonProperty("staticRecipients")
     public List<String> getStaticRecipients() {
         return staticRecipients;
     }

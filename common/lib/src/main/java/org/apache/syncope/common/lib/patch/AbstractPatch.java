@@ -18,13 +18,9 @@
  */
 package org.apache.syncope.common.lib.patch;
 
-import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.bind.annotation.XmlType;
 import org.apache.syncope.common.lib.AbstractBaseBean;
 import org.apache.syncope.common.lib.types.PatchOperation;
 
-@XmlType
-@XmlSeeAlso({ AbstractPatchItem.class, AttrPatch.class, MembershipPatch.class, RelationshipPatch.class })
 public abstract class AbstractPatch extends AbstractBaseBean {
 
     private static final long serialVersionUID = -4729181508529829580L;

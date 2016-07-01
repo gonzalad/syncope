@@ -47,10 +47,6 @@ under the License.
       <groupId>org.apache.cxf</groupId>
       <artifactId>cxf-rt-rs-client</artifactId>
     </dependency>
-    <dependency>
-      <groupId>org.apache.cxf</groupId>
-      <artifactId>cxf-rt-databinding-jaxb</artifactId>
-    </dependency>
     
     <dependency>
       <groupId>com.fasterxml.jackson.datatype</groupId>
@@ -60,6 +56,10 @@ under the License.
       <groupId>com.fasterxml.jackson.jaxrs</groupId>
       <artifactId>jackson-jaxrs-json-provider</artifactId>
     </dependency>  
+    <dependency>
+      <groupId>com.fasterxml.jackson.jaxrs</groupId>
+      <artifactId>jackson-jaxrs-xml-provider</artifactId>
+    </dependency>
     
     <dependency>
       <groupId>commons-codec</groupId>

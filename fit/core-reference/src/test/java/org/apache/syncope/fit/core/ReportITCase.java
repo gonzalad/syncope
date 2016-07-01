@@ -250,8 +250,8 @@ public class ReportITCase extends AbstractITCase {
         assertNotNull(result);
 
         assertEquals(1, result.getResults().size());
-        assertEquals(execKey, result.getResults().keySet().iterator().next());
-        assertEquals(BulkActionResult.Status.SUCCESS, result.getResults().entrySet().iterator().next().getValue());
+        assertEquals(execKey, result.getResultMap().keySet().iterator().next());
+        assertEquals(BulkActionResult.Status.SUCCESS, result.getResultMap().entrySet().iterator().next().getValue());
     }
 
     @Test

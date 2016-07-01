@@ -18,6 +18,7 @@
  */
 package org.apache.syncope.common.lib.to;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
@@ -25,26 +26,12 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.apache.syncope.common.lib.AbstractBaseBean;
-import org.apache.syncope.common.lib.jaxb.XmlGenericMapAdapter;
 
-@XmlRootElement(name = "bulkActionResult")
-@XmlType
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlSeeAlso(BulkActionResult.Status.class)
 public class BulkActionResult extends AbstractBaseBean {
 
     private static final long serialVersionUID = 2868894178821778133L;
 
-    @XmlEnum
-    @XmlType(name = "bulkActionStatus")
     public enum Status {
 
         // general bulk action result statuses
@@ -56,25 +43,48 @@ public class BulkActionResult extends AbstractBaseBean {
 
     }
 
-    @XmlJavaTypeAdapter(XmlGenericMapAdapter.class)
-    @JsonIgnore
-    private final Map<String, Status> results = new HashMap<>();
+    public static class Single extends AbstractBaseBean {
 
-    @JsonProperty
-    public Map<String, Status> getResults() {
+        private static final long serialVersionUID = -2677679977955844506L;
+
+        private final String key;
+
+        private final Status status;
+
+        @JsonCreator
+        public Single(@JsonProperty("key") final String key, @JsonProperty("status") final Status status) {
+            this.key = key;
+            this.status = status;
+        }
+
+        public String getKey() {
+            return key;
+        }
+
+        public Status getStatus() {
+            return status;
+        }
+    }
+
+    private final List<Single> results = new ArrayList<>();
+
+    @JsonIgnore
+    public boolean add(final String key, final Status status) {
+        Single single = new Single(key, status);
+        return results.contains(single) || results.add(single);
+    }
+
+    public List<Single> getResults() {
         return results;
     }
 
     @JsonIgnore
-    public List<String> getResultByStatus(final Status status) {
-        final List<String> result = new ArrayList<>();
-
-        for (Map.Entry<String, Status> entry : results.entrySet()) {
-            if (entry.getValue() == status) {
-                result.add(entry.getKey());
-            }
+    public Map<String, Status> getResultMap() {
+        Map<String, Status> result = new HashMap<>(results.size());
+        for (Single single : results) {
+            result.put(single.getKey(), single.getStatus());
         }
 
-        return Collections.unmodifiableList(result);
+        return Collections.unmodifiableMap(result);
     }
 }

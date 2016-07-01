@@ -19,12 +19,8 @@
 package org.apache.syncope.common.lib.patch;
 
 import javax.ws.rs.PathParam;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import org.apache.syncope.common.lib.types.StatusPatchType;
 
-@XmlRootElement(name = "statusPatch")
-@XmlType
 public class StatusPatch extends PasswordPatch {
 
     private static final long serialVersionUID = 99309988426922612L;

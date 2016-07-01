@@ -19,11 +19,7 @@
 package org.apache.syncope.common.lib.to;
 
 import org.apache.syncope.common.lib.AbstractBaseBean;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "connPoolConf")
-@XmlType
 public class ConnPoolConfTO extends AbstractBaseBean {
 
     private static final long serialVersionUID = -214360178113476623L;

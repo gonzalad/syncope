@@ -113,10 +113,10 @@ public class TaskServiceImpl extends AbstractExecutableService implements TaskSe
             case DELETE:
                 for (String key : bulkAction.getTargets()) {
                     try {
-                        result.getResults().put(logic.delete(key).getKey(), BulkActionResult.Status.SUCCESS);
+                        result.add(logic.delete(key).getKey(), BulkActionResult.Status.SUCCESS);
                     } catch (Exception e) {
                         LOG.error("Error performing delete for task {}", key, e);
-                        result.getResults().put(key, BulkActionResult.Status.FAILURE);
+                        result.add(key, BulkActionResult.Status.FAILURE);
                     }
                 }
                 break;
@@ -125,10 +125,10 @@ public class TaskServiceImpl extends AbstractExecutableService implements TaskSe
                 for (String key : bulkAction.getTargets()) {
                     try {
                         logic.execute(key, null, true);
-                        result.getResults().put(key, BulkActionResult.Status.SUCCESS);
+                        result.add(key, BulkActionResult.Status.SUCCESS);
                     } catch (Exception e) {
                         LOG.error("Error performing dryrun for task {}", key, e);
-                        result.getResults().put(key, BulkActionResult.Status.FAILURE);
+                        result.add(key, BulkActionResult.Status.FAILURE);
                     }
                 }
                 break;
@@ -137,10 +137,10 @@ public class TaskServiceImpl extends AbstractExecutableService implements TaskSe
                 for (String key : bulkAction.getTargets()) {
                     try {
                         logic.execute(key, null, false);
-                        result.getResults().put(key, BulkActionResult.Status.SUCCESS);
+                        result.add(key, BulkActionResult.Status.SUCCESS);
                     } catch (Exception e) {
                         LOG.error("Error performing execute for task {}", key, e);
-                        result.getResults().put(key, BulkActionResult.Status.FAILURE);
+                        result.add(key, BulkActionResult.Status.FAILURE);
                     }
                 }
                 break;

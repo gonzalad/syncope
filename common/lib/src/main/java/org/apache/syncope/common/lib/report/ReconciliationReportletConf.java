@@ -18,24 +18,13 @@
  */
 package org.apache.syncope.common.lib.report;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-
-@XmlRootElement(name = "reconciliationReportletConf")
-@XmlType
 public class ReconciliationReportletConf extends AbstractReportletConf {
 
     private static final long serialVersionUID = 6602717600064602764L;
 
-    @XmlEnum
-    @XmlType(name = "reconciliationReportletConfFeature")
     public enum Feature {
 
         key,
@@ -94,9 +83,6 @@ public class ReconciliationReportletConf extends AbstractReportletConf {
         this.anyObjectMatchingCond = anyObjectMatchingCond;
     }
 
-    @XmlElementWrapper(name = "features")
-    @XmlElement(name = "feature")
-    @JsonProperty("features")
     public List<Feature> getFeatures() {
         return features;
     }

@@ -18,23 +18,14 @@
  */
 package org.apache.syncope.common.lib.to;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import org.apache.syncope.common.lib.AbstractBaseBean;
 
-@XmlRootElement(name = "camelMetrics")
-@XmlType
 public class CamelMetrics extends AbstractBaseBean {
 
     private static final long serialVersionUID = -391404198406614231L;
 
-    @XmlRootElement(name = "meanRate")
-    @XmlType
     public static class MeanRate extends AbstractBaseBean {
 
         private static final long serialVersionUID = -233921226510124154L;
@@ -63,9 +54,6 @@ public class CamelMetrics extends AbstractBaseBean {
 
     private final List<MeanRate> responseMeanRates = new ArrayList<>();
 
-    @XmlElementWrapper(name = "responseMeanRates")
-    @XmlElement(name = "meanRate")
-    @JsonProperty("responseMeanRates")
     public List<MeanRate> getResponseMeanRates() {
         return responseMeanRates;
     }

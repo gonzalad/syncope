@@ -19,13 +19,9 @@
 package org.apache.syncope.common.lib.to;
 
 import java.util.Date;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import org.apache.syncope.common.lib.AbstractBaseBean;
 import org.apache.syncope.common.lib.types.JobType;
 
-@XmlRootElement(name = "job")
-@XmlType
 public class JobTO extends AbstractBaseBean {
 
     private static final long serialVersionUID = -7254450981751326711L;

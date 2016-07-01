@@ -18,11 +18,6 @@
  */
 package org.apache.syncope.common.lib.to;
 
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-
-@XmlRootElement(name = "derivedSchema")
-@XmlType
 public class DerSchemaTO extends AbstractSchemaTO {
 
     private static final long serialVersionUID = -6747399803792103108L;

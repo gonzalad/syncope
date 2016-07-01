@@ -18,9 +18,6 @@
  */
 package org.apache.syncope.common.lib.types;
 
-import javax.xml.bind.annotation.XmlEnum;
-
-@XmlEnum
 public enum ConflictResolutionAction {
 
     // ignore sync
@@ -31,4 +28,5 @@ public enum ConflictResolutionAction {
     LASTMATCH,
     // sync all
     ALL;
+
 }

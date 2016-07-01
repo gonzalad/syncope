@@ -18,25 +18,15 @@
  */
 package org.apache.syncope.common.lib.report;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import org.apache.syncope.common.lib.types.AnyTypeKind;
 import org.apache.syncope.common.lib.types.SchemaType;
 
-@XmlRootElement(name = "groupReportletConf")
-@XmlType
 public class GroupReportletConf extends AbstractAnyReportletConf {
 
     private static final long serialVersionUID = -8488503068032439699L;
 
-    @XmlEnum
-    @XmlType(name = "groupReportletConfFeature")
     public enum Feature {
 
         key,
@@ -70,23 +60,14 @@ public class GroupReportletConf extends AbstractAnyReportletConf {
         this.matchingCond = matchingCond;
     }
 
-    @XmlElementWrapper(name = "plainAttrs")
-    @XmlElement(name = "attribute")
-    @JsonProperty("plainAttrs")
     public List<String> getPlainAttrs() {
         return plainAttrs;
     }
 
-    @XmlElementWrapper(name = "derAttrs")
-    @XmlElement(name = "attribute")
-    @JsonProperty("derAttrs")
     public List<String> getDerAttrs() {
         return derAttrs;
     }
 
-    @XmlElementWrapper(name = "virAttrs")
-    @XmlElement(name = "attribute")
-    @JsonProperty("virAttrs")
     public List<String> getVirAttrs() {
         return virAttrs;
     }
@@ -99,9 +80,6 @@ public class GroupReportletConf extends AbstractAnyReportletConf {
         super(name);
     }
 
-    @XmlElementWrapper(name = "features")
-    @XmlElement(name = "feature")
-    @JsonProperty("features")
     public List<Feature> getFeatures() {
         return features;
     }

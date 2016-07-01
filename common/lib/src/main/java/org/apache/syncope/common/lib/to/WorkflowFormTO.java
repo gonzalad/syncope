@@ -19,21 +19,14 @@
 package org.apache.syncope.common.lib.to;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import org.apache.syncope.common.lib.AbstractBaseBean;
 
-@XmlRootElement(name = "workflowForm")
-@XmlType
 public class WorkflowFormTO extends AbstractBaseBean {
 
     private static final long serialVersionUID = -7044543391316529128L;
@@ -100,9 +93,6 @@ public class WorkflowFormTO extends AbstractBaseBean {
         this.owner = owner;
     }
 
-    @XmlElementWrapper(name = "workflowFormProperties")
-    @XmlElement(name = "workflowFormProperty")
-    @JsonProperty("workflowFormProperties")
     public List<WorkflowFormPropertyTO> getProperties() {
         return properties;
     }

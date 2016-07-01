@@ -18,18 +18,11 @@
  */
 package org.apache.syncope.common.lib.types;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.syncope.common.lib.AbstractBaseBean;
 
-@XmlRootElement
-@XmlType
 public class ConnConfProperty extends AbstractBaseBean implements Comparable<ConnConfProperty> {
 
     private static final long serialVersionUID = -8391413960221862238L;
@@ -48,9 +41,6 @@ public class ConnConfProperty extends AbstractBaseBean implements Comparable<Con
         this.schema = schema;
     }
 
-    @XmlElementWrapper(name = "values")
-    @XmlElement(name = "value")
-    @JsonProperty("values")
     public List<Object> getValues() {
         return values;
     }

@@ -247,14 +247,14 @@ public abstract class AbstractAnyService<TO extends AnyTO, P extends AnyPatch>
 
         if (patch.getAction() == ResourceDeassociationAction.UNLINK) {
             for (String resource : patch.getResources()) {
-                result.getResults().put(resource,
+                result.add(resource,
                         updated.getEntity().getResources().contains(resource)
                         ? BulkActionResult.Status.FAILURE
                         : BulkActionResult.Status.SUCCESS);
             }
         } else {
             for (PropagationStatus propagationStatusTO : updated.getPropagationStatuses()) {
-                result.getResults().put(propagationStatusTO.getResource(),
+                result.add(propagationStatusTO.getResource(),
                         BulkActionResult.Status.valueOf(propagationStatusTO.getStatus().toString()));
             }
         }
@@ -304,14 +304,14 @@ public abstract class AbstractAnyService<TO extends AnyTO, P extends AnyPatch>
 
         if (patch.getAction() == ResourceAssociationAction.LINK) {
             for (String resource : patch.getResources()) {
-                result.getResults().put(resource,
+                result.add(resource,
                         updated.getEntity().getResources().contains(resource)
                         ? BulkActionResult.Status.SUCCESS
                         : BulkActionResult.Status.FAILURE);
             }
         } else {
             for (PropagationStatus propagationStatusTO : updated.getPropagationStatuses()) {
-                result.getResults().put(propagationStatusTO.getResource(),
+                result.add(propagationStatusTO.getResource(),
                         BulkActionResult.Status.valueOf(propagationStatusTO.getStatus().toString()));
             }
         }
@@ -334,12 +334,12 @@ public abstract class AbstractAnyService<TO extends AnyTO, P extends AnyPatch>
                             userPatch.setKey(key);
                             userPatch.setMustChangePassword(new BooleanReplacePatchItem.Builder().value(true).build());
 
-                            result.getResults().put(
+                            result.add(
                                     ((UserLogic) logic).update(userPatch, false).getEntity().getKey(),
                                     BulkActionResult.Status.SUCCESS);
                         } catch (Exception e) {
                             LOG.error("Error performing delete for user {}", key, e);
-                            result.getResults().put(key, BulkActionResult.Status.FAILURE);
+                            result.add(key, BulkActionResult.Status.FAILURE);
                         }
                     }
                 } else {
@@ -350,12 +350,12 @@ public abstract class AbstractAnyService<TO extends AnyTO, P extends AnyPatch>
             case DELETE:
                 for (String key : bulkAction.getTargets()) {
                     try {
-                        result.getResults().put(
+                        result.add(
                                 logic.delete(key, isNullPriorityAsync()).getEntity().getKey(),
                                 BulkActionResult.Status.SUCCESS);
                     } catch (Exception e) {
                         LOG.error("Error performing delete for user {}", key, e);
-                        result.getResults().put(key, BulkActionResult.Status.FAILURE);
+                        result.add(key, BulkActionResult.Status.FAILURE);
                     }
                 }
                 break;
@@ -369,13 +369,13 @@ public abstract class AbstractAnyService<TO extends AnyTO, P extends AnyPatch>
                         statusPatch.setOnSyncope(true);
 
                         try {
-                            result.getResults().put(
+                            result.add(
                                     ((UserLogic) logic).
                                     status(statusPatch, isNullPriorityAsync()).getEntity().getKey(),
                                     BulkActionResult.Status.SUCCESS);
                         } catch (Exception e) {
                             LOG.error("Error performing suspend for user {}", key, e);
-                            result.getResults().put(key, BulkActionResult.Status.FAILURE);
+                            result.add(key, BulkActionResult.Status.FAILURE);
                         }
                     }
                 } else {
@@ -392,13 +392,13 @@ public abstract class AbstractAnyService<TO extends AnyTO, P extends AnyPatch>
                         statusPatch.setOnSyncope(true);
 
                         try {
-                            result.getResults().put(
+                            result.add(
                                     ((UserLogic) logic).
                                     status(statusPatch, isNullPriorityAsync()).getEntity().getKey(),
                                     BulkActionResult.Status.SUCCESS);
                         } catch (Exception e) {
                             LOG.error("Error performing reactivate for user {}", key, e);
-                            result.getResults().put(key, BulkActionResult.Status.FAILURE);
+                            result.add(key, BulkActionResult.Status.FAILURE);
                         }
                     }
                 } else {

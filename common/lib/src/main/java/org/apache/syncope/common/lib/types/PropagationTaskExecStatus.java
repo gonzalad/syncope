@@ -18,12 +18,9 @@
  */
 package org.apache.syncope.common.lib.types;
 
-import javax.xml.bind.annotation.XmlEnum;
-
 /**
  * Status of a propagation task execution.
  */
-@XmlEnum
 public enum PropagationTaskExecStatus {
 
     CREATED,

@@ -18,22 +18,13 @@
  */
 package org.apache.syncope.common.lib.policy;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.PathParam;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.bind.annotation.XmlType;
 import org.apache.syncope.common.lib.AbstractBaseBean;
 import org.apache.syncope.common.lib.to.EntityTO;
 
-@XmlRootElement(name = "abstractPolicy")
-@XmlType
-@XmlSeeAlso({ AccountPolicyTO.class, PasswordPolicyTO.class, PullPolicyTO.class })
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "@class")
 public abstract class AbstractPolicyTO extends AbstractBaseBean implements EntityTO {
 
@@ -66,16 +57,10 @@ public abstract class AbstractPolicyTO extends AbstractBaseBean implements Entit
         this.description = description;
     }
 
-    @XmlElementWrapper(name = "usedByResources")
-    @XmlElement(name = "resource")
-    @JsonProperty("usedByResources")
     public List<String> getUsedByResources() {
         return usedByResources;
     }
 
-    @XmlElementWrapper(name = "usedByRealms")
-    @XmlElement(name = "group")
-    @JsonProperty("usedByRealms")
     public List<String> getUsedByRealms() {
         return usedByRealms;
     }

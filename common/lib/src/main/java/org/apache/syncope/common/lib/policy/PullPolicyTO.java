@@ -18,11 +18,6 @@
  */
 package org.apache.syncope.common.lib.policy;
 
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-
-@XmlRootElement(name = "pullPolicy")
-@XmlType
 public class PullPolicyTO extends AbstractPolicyTO {
 
     private static final long serialVersionUID = 993024634238024242L;

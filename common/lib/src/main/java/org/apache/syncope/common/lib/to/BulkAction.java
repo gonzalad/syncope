@@ -18,24 +18,14 @@
  */
 package org.apache.syncope.common.lib.to;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import org.apache.syncope.common.lib.AbstractBaseBean;
 
-@XmlRootElement(name = "bulkAction")
-@XmlType
 public class BulkAction extends AbstractBaseBean {
 
     private static final long serialVersionUID = 1395353278878758961L;
 
-    @XmlEnum
-    @XmlType(name = "bulkActionType")
     public enum Type {
 
         MUSTCHANGEPASSWORD,
@@ -59,9 +49,6 @@ public class BulkAction extends AbstractBaseBean {
         this.type = type;
     }
 
-    @XmlElementWrapper(name = "targets")
-    @XmlElement(name = "target")
-    @JsonProperty("targets")
     public List<String> getTargets() {
         return targets;
     }

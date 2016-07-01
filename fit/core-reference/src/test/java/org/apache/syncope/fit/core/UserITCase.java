@@ -26,6 +26,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.security.AccessControlException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -116,6 +117,18 @@ public class UserITCase extends AbstractITCase {
         userTO.getPlainAttrs().add(attrTO("loginDate", DATE_FORMAT.format(new Date())));
         userTO.getDerAttrs().add(attrTO("cn", null));
         return userTO;
+    }
+
+    private List<String> getResultByStatus(final BulkActionResult bulkActionResult, final Status status) {
+        List<String> result = new ArrayList<>();
+
+        for (Map.Entry<String, Status> entry : bulkActionResult.getResultMap().entrySet()) {
+            if (entry.getValue() == status) {
+                result.add(entry.getKey());
+            }
+        }
+
+        return Collections.unmodifiableList(result);
     }
 
     @Test
@@ -1036,20 +1049,20 @@ public class UserITCase extends AbstractITCase {
 
         bulkAction.setType(BulkAction.Type.SUSPEND);
         BulkActionResult res = userService.bulk(bulkAction).readEntity(BulkActionResult.class);
-        assertEquals(10, res.getResultByStatus(Status.SUCCESS).size());
-        assertEquals(1, res.getResultByStatus(Status.FAILURE).size());
-        assertEquals("suspended", userService.read(res.getResultByStatus(Status.SUCCESS).get(3)).getStatus());
+        assertEquals(10, getResultByStatus(res, Status.SUCCESS).size());
+        assertEquals(1, getResultByStatus(res, Status.FAILURE).size());
+        assertEquals("suspended", userService.read(getResultByStatus(res, Status.SUCCESS).get(3)).getStatus());
 
         bulkAction.setType(BulkAction.Type.REACTIVATE);
         res = userService.bulk(bulkAction).readEntity(BulkActionResult.class);
-        assertEquals(10, res.getResultByStatus(Status.SUCCESS).size());
-        assertEquals(1, res.getResultByStatus(Status.FAILURE).size());
-        assertEquals("active", userService.read(res.getResultByStatus(Status.SUCCESS).get(3)).getStatus());
+        assertEquals(10, getResultByStatus(res, Status.SUCCESS).size());
+        assertEquals(1, getResultByStatus(res, Status.FAILURE).size());
+        assertEquals("active", userService.read(getResultByStatus(res, Status.SUCCESS).get(3)).getStatus());
 
         bulkAction.setType(BulkAction.Type.DELETE);
         res = userService.bulk(bulkAction).readEntity(BulkActionResult.class);
-        assertEquals(10, res.getResultByStatus(Status.SUCCESS).size());
-        assertEquals(1, res.getResultByStatus(Status.FAILURE).size());
+        assertEquals(10, getResultByStatus(res, Status.SUCCESS).size());
+        assertEquals(1, getResultByStatus(res, Status.FAILURE).size());
     }
 
     @Test

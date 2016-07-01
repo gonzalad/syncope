@@ -18,19 +18,12 @@
  */
 package org.apache.syncope.common.lib.patch;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.PathParam;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import org.apache.syncope.common.lib.AbstractBaseBean;
 import org.apache.syncope.common.lib.types.ResourceDeassociationAction;
 
-@XmlRootElement(name = "deassociationPatch")
-@XmlType
 public class DeassociationPatch extends AbstractBaseBean {
 
     private static final long serialVersionUID = 6295778399633883767L;
@@ -58,9 +51,6 @@ public class DeassociationPatch extends AbstractBaseBean {
         this.action = action;
     }
 
-    @XmlElementWrapper(name = "resources")
-    @XmlElement(name = "resource")
-    @JsonProperty("resources")
     public List<String> getResources() {
         return resources;
     }

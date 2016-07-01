@@ -19,23 +19,14 @@
 package org.apache.syncope.common.lib.to;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.apache.commons.collections4.IterableUtils;
 import org.apache.commons.collections4.Predicate;
-import org.apache.syncope.common.lib.jaxb.XmlGenericMapAdapter;
 import org.apache.syncope.common.lib.types.AnyTypeKind;
 
-@XmlRootElement(name = "group")
-@XmlType
 public class GroupTO extends AnyTO {
 
     private static final long serialVersionUID = -7785920258290147542L;
@@ -48,8 +39,6 @@ public class GroupTO extends AnyTO {
 
     private String udynMembershipCond;
 
-    @XmlJavaTypeAdapter(XmlGenericMapAdapter.class)
-    @JsonIgnore
     private final Map<String, String> adynMembershipConds = new HashMap<>();
 
     private final List<TypeExtensionTO> typeExtensions = new ArrayList<>();
@@ -96,7 +85,6 @@ public class GroupTO extends AnyTO {
         this.udynMembershipCond = uDynMembershipCond;
     }
 
-    @JsonProperty
     public Map<String, String> getADynMembershipConds() {
         return adynMembershipConds;
     }
@@ -112,9 +100,6 @@ public class GroupTO extends AnyTO {
         });
     }
 
-    @XmlElementWrapper(name = "typeExtensions")
-    @XmlElement(name = "typeExtension")
-    @JsonProperty("typeExtensions")
     public List<TypeExtensionTO> getTypeExtensions() {
         return typeExtensions;
     }

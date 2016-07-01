@@ -18,11 +18,6 @@
  */
 package org.apache.syncope.common.lib.patch;
 
-import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.bind.annotation.XmlType;
-
-@XmlType
-@XmlSeeAlso({ AbstractReplacePatchItem.class, LongPatchItem.class, StringPatchItem.class })
 public abstract class AbstractPatchItem<T> extends AbstractPatch {
 
     private static final long serialVersionUID = -8889326446009942028L;

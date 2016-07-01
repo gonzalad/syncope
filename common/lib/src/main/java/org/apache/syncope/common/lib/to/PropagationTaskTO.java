@@ -18,13 +18,9 @@
  */
 package org.apache.syncope.common.lib.to;
 
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import org.apache.syncope.common.lib.types.AnyTypeKind;
 import org.apache.syncope.common.lib.types.ResourceOperation;
 
-@XmlRootElement(name = "propagationTask")
-@XmlType
 public class PropagationTaskTO extends AbstractTaskTO {
 
     private static final long serialVersionUID = 386450127003321197L;

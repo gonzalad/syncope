@@ -18,20 +18,13 @@
  */
 package org.apache.syncope.common.lib.to;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.ws.rs.PathParam;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import org.apache.syncope.common.lib.AbstractBaseBean;
 
-@XmlRootElement(name = "role")
-@XmlType
 public class RoleTO extends AbstractBaseBean implements EntityTO {
 
     private static final long serialVersionUID = 4560822655754800031L;
@@ -55,16 +48,10 @@ public class RoleTO extends AbstractBaseBean implements EntityTO {
         this.key = key;
     }
 
-    @XmlElementWrapper(name = "entitlements")
-    @XmlElement(name = "entitlement")
-    @JsonProperty("entitlements")
     public Set<String> getEntitlements() {
         return entitlements;
     }
 
-    @XmlElementWrapper(name = "realms")
-    @XmlElement(name = "realm")
-    @JsonProperty("realms")
     public List<String> getRealms() {
         return realms;
     }

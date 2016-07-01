@@ -18,16 +18,9 @@
  */
 package org.apache.syncope.common.lib.patch;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.HashSet;
 import java.util.Set;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "userPatch")
-@XmlType
 public class UserPatch extends AnyPatch {
 
     private static final long serialVersionUID = 2872795537911821448L;
@@ -88,23 +81,14 @@ public class UserPatch extends AnyPatch {
         this.mustChangePassword = mustChangePassword;
     }
 
-    @XmlElementWrapper(name = "relationships")
-    @XmlElement(name = "relationship")
-    @JsonProperty("relationships")
     public Set<RelationshipPatch> getRelationships() {
         return relationships;
     }
 
-    @XmlElementWrapper(name = "memberships")
-    @XmlElement(name = "membership")
-    @JsonProperty("memberships")
     public Set<MembershipPatch> getMemberships() {
         return memberships;
     }
 
-    @XmlElementWrapper(name = "roles")
-    @XmlElement(name = "role")
-    @JsonProperty("roles")
     public Set<StringPatchItem> getRoles() {
         return roles;
     }

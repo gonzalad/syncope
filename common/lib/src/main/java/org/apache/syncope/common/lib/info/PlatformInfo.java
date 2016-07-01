@@ -18,17 +18,10 @@
  */
 package org.apache.syncope.common.lib.info;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.HashSet;
 import java.util.Set;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import org.apache.syncope.common.lib.AbstractBaseBean;
 
-@XmlRootElement(name = "platformInfo")
-@XmlType
 public class PlatformInfo extends AbstractBaseBean {
 
     private static final long serialVersionUID = -7941853999417673827L;
@@ -105,9 +98,6 @@ public class PlatformInfo extends AbstractBaseBean {
         return pwdResetRequiringSecurityQuestions;
     }
 
-    @XmlElementWrapper(name = "connIdLocations")
-    @XmlElement(name = "connIdLocation")
-    @JsonProperty("connIdLocations")
     public Set<String> getConnIdLocations() {
         return connIdLocations;
     }
@@ -148,107 +138,62 @@ public class PlatformInfo extends AbstractBaseBean {
         this.passwordGenerator = passwordGenerator;
     }
 
-    @XmlElementWrapper(name = "entitlements")
-    @XmlElement(name = "entitlement")
-    @JsonProperty("entitlements")
     public Set<String> getEntitlements() {
         return entitlements;
     }
 
-    @XmlElementWrapper(name = "reportletConfs")
-    @XmlElement(name = "reportletConf")
-    @JsonProperty("reportletConfs")
     public Set<String> getReportletConfs() {
         return reportletConfs;
     }
 
-    @XmlElementWrapper(name = "accountRules")
-    @XmlElement(name = "accountRule")
-    @JsonProperty("accountRules")
     public Set<String> getAccountRules() {
         return accountRules;
     }
 
-    @XmlElementWrapper(name = "passwordRules")
-    @XmlElement(name = "passwordRule")
-    @JsonProperty("passwordRules")
     public Set<String> getPasswordRules() {
         return passwordRules;
     }
 
-    @XmlElementWrapper(name = "mappingItemTransformers")
-    @XmlElement(name = "mappingItemTransformer")
-    @JsonProperty("mappingItemTransformers")
     public Set<String> getMappingItemTransformers() {
         return mappingItemTransformers;
     }
 
-    @XmlElementWrapper(name = "taskJobs")
-    @XmlElement(name = "taskJob")
-    @JsonProperty("taskJobs")
     public Set<String> getTaskJobs() {
         return taskJobs;
     }
 
-    @XmlElementWrapper(name = "reconciliationFilterBuilders")
-    @XmlElement(name = "reconciliationFilterBuilder")
-    @JsonProperty("reconciliationFilterBuilders")
     public Set<String> getReconciliationFilterBuilders() {
         return reconciliationFilterBuilders;
     }
 
-    @XmlElementWrapper(name = "logicActions")
-    @XmlElement(name = "logicAction")
-    @JsonProperty("logicActions")
     public Set<String> getLogicActions() {
         return logicActions;
     }
 
-    @XmlElementWrapper(name = "propagationActions")
-    @XmlElement(name = "propagationAction")
-    @JsonProperty("propagationActions")
     public Set<String> getPropagationActions() {
         return propagationActions;
     }
 
-    @XmlElementWrapper(name = "pullActions")
-    @XmlElement(name = "pullAction")
-    @JsonProperty("pullActions")
     public Set<String> getPullActions() {
         return pullActions;
     }
 
-    @XmlElementWrapper(name = "pushActions")
-    @XmlElement(name = "pushAction")
-    @JsonProperty("pushActions")
     public Set<String> getPushActions() {
         return pushActions;
     }
 
-    @XmlElementWrapper(name = "pullCorrelationRules")
-    @XmlElement(name = "pullCorrelationRule")
-    @JsonProperty("pullCorrelationRules")
     public Set<String> getPullCorrelationRules() {
         return pullCorrelationRules;
     }
 
-    @XmlElementWrapper(name = "pushCorrelationRules")
-    @XmlElement(name = "pushCorrelationRule")
-    @JsonProperty("pushCorrelationRules")
     public Set<String> getPushCorrelationRules() {
         return pushCorrelationRules;
     }
 
-    @XmlElementWrapper(name = "validators")
-    @XmlElement(name = "validator")
-    @JsonProperty("validators")
     public Set<String> getValidators() {
         return validators;
     }
 
-    @XmlElementWrapper(name = "notificationRecipientsProviders")
-    @XmlElement(name = "notificationRecipientsProvider")
-    @JsonProperty("notificationRecipientsProviders")
     public Set<String> getNotificationRecipientsProviders() {
         return notificationRecipientsProviders;
     }

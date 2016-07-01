@@ -19,17 +19,12 @@
 package org.apache.syncope.common.lib.patch;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.HashSet;
 import java.util.Set;
 import javax.ws.rs.PathParam;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlType;
 import org.apache.syncope.common.lib.AbstractBaseBean;
 import org.apache.syncope.common.lib.to.AttrTO;
 
-@XmlType
 public abstract class AnyPatch extends AbstractBaseBean implements AttributablePatch {
 
     private static final long serialVersionUID = -7445489774552440544L;
@@ -63,32 +58,20 @@ public abstract class AnyPatch extends AbstractBaseBean implements AttributableP
         this.realm = realm;
     }
 
-    @XmlElementWrapper(name = "auxClasses")
-    @XmlElement(name = "auxClass")
-    @JsonProperty("auxClasses")
     public Set<StringPatchItem> getAuxClasses() {
         return auxClasses;
     }
 
-    @XmlElementWrapper(name = "plainAttrs")
-    @XmlElement(name = "attribute")
-    @JsonProperty("plainAttrs")
     @Override
     public Set<AttrPatch> getPlainAttrs() {
         return plainAttrs;
     }
 
-    @XmlElementWrapper(name = "virAttrs")
-    @XmlElement(name = "attribute")
-    @JsonProperty("virAttrs")
     @Override
     public Set<AttrTO> getVirAttrs() {
         return virAttrs;
     }
 
-    @XmlElementWrapper(name = "resources")
-    @XmlElement(name = "resource")
-    @JsonProperty("resources")
     public Set<StringPatchItem> getResources() {
         return resources;
     }

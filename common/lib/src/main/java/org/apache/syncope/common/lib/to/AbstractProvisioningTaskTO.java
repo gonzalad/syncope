@@ -18,20 +18,11 @@
  */
 package org.apache.syncope.common.lib.to;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.HashSet;
 import java.util.Set;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.bind.annotation.XmlType;
 import org.apache.syncope.common.lib.types.MatchingRule;
 import org.apache.syncope.common.lib.types.UnmatchingRule;
 
-@XmlRootElement(name = "abstractProvisioningTask")
-@XmlType
-@XmlSeeAlso({ PushTaskTO.class, PullTaskTO.class })
 public class AbstractProvisioningTaskTO extends SchedTaskTO {
 
     private static final long serialVersionUID = -2143537546915809016L;
@@ -92,9 +83,6 @@ public class AbstractProvisioningTaskTO extends SchedTaskTO {
         this.syncStatus = syncStatus;
     }
 
-    @XmlElementWrapper(name = "actionsClassNames")
-    @XmlElement(name = "actionsClassName")
-    @JsonProperty("actionsClassNames")
     public Set<String> getActionsClassNames() {
         return actionsClassNames;
     }

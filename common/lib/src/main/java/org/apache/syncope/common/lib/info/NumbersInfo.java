@@ -18,25 +18,14 @@
  */
 package org.apache.syncope.common.lib.info;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.HashMap;
 import java.util.Map;
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.apache.syncope.common.lib.AbstractBaseBean;
-import org.apache.syncope.common.lib.jaxb.XmlGenericMapAdapter;
 
-@XmlRootElement(name = "numbersInfo")
-@XmlType
 public class NumbersInfo extends AbstractBaseBean {
 
     private static final long serialVersionUID = 7691187370598649583L;
 
-    @XmlEnum
-    @XmlType(name = "confItem")
     public enum ConfItem {
 
         RESOURCE(20),
@@ -63,42 +52,30 @@ public class NumbersInfo extends AbstractBaseBean {
 
     private int totalUsers;
 
-    @XmlJavaTypeAdapter(XmlGenericMapAdapter.class)
-    @JsonIgnore
     private final Map<String, Integer> usersByRealm = new HashMap<>();
 
-    @XmlJavaTypeAdapter(XmlGenericMapAdapter.class)
-    @JsonIgnore
     private final Map<String, Integer> usersByStatus = new HashMap<>();
 
     private int totalGroups;
 
-    @XmlJavaTypeAdapter(XmlGenericMapAdapter.class)
-    @JsonIgnore
     private final Map<String, Integer> groupsByRealm = new HashMap<>();
 
     private String anyType1;
 
     private Integer totalAny1;
 
-    @XmlJavaTypeAdapter(XmlGenericMapAdapter.class)
-    @JsonIgnore
     private final Map<String, Integer> any1ByRealm = new HashMap<>();
 
     private String anyType2;
 
     private Integer totalAny2;
 
-    @XmlJavaTypeAdapter(XmlGenericMapAdapter.class)
-    @JsonIgnore
     private final Map<String, Integer> any2ByRealm = new HashMap<>();
 
     private int totalResources;
 
     private int totalRoles;
 
-    @XmlJavaTypeAdapter(XmlGenericMapAdapter.class)
-    @JsonIgnore
     private final Map<ConfItem, Boolean> confCompleteness = new HashMap<>();
 
     public int getTotalUsers() {
@@ -165,32 +142,26 @@ public class NumbersInfo extends AbstractBaseBean {
         this.totalRoles = totalRoles;
     }
 
-    @JsonProperty
     public Map<String, Integer> getUsersByRealm() {
         return usersByRealm;
     }
 
-    @JsonProperty
     public Map<String, Integer> getUsersByStatus() {
         return usersByStatus;
     }
 
-    @JsonProperty
     public Map<String, Integer> getGroupsByRealm() {
         return groupsByRealm;
     }
 
-    @JsonProperty
     public Map<String, Integer> getAny1ByRealm() {
         return any1ByRealm;
     }
 
-    @JsonProperty
     public Map<String, Integer> getAny2ByRealm() {
         return any2ByRealm;
     }
 
-    @JsonProperty
     public Map<ConfItem, Boolean> getConfCompleteness() {
         return confCompleteness;
     }

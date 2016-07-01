@@ -19,10 +19,8 @@
 package org.apache.syncope.common.lib.to;
 
 import java.util.Date;
-import javax.xml.bind.annotation.XmlType;
 import org.apache.syncope.common.lib.AbstractBaseBean;
 
-@XmlType
 public class AbstractStartEndBean extends AbstractBaseBean {
 
     private static final long serialVersionUID = 2399577415544539917L;

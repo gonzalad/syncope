@@ -18,19 +18,12 @@
  */
 package org.apache.syncope.common.lib.policy;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import org.apache.syncope.common.lib.report.Schema;
 import org.apache.syncope.common.lib.types.AnyTypeKind;
 import org.apache.syncope.common.lib.types.SchemaType;
 
-@XmlRootElement(name = "defaultAccountRuleConf")
-@XmlType
 public class DefaultAccountRuleConf extends AbstractAccountRuleConf implements AccountRuleConf {
 
     private static final long serialVersionUID = 3259256974414758406L;
@@ -122,30 +115,18 @@ public class DefaultAccountRuleConf extends AbstractAccountRuleConf implements A
         this.pattern = pattern;
     }
 
-    @XmlElementWrapper(name = "wordsNotPermitted")
-    @XmlElement(name = "word")
-    @JsonProperty("wordsNotPermitted")
     public List<String> getWordsNotPermitted() {
         return wordsNotPermitted;
     }
 
-    @XmlElementWrapper(name = "prefixesNotPermitted")
-    @XmlElement(name = "prefix")
-    @JsonProperty("prefixesNotPermitted")
     public List<String> getPrefixesNotPermitted() {
         return prefixesNotPermitted;
     }
 
-    @XmlElementWrapper(name = "schemasNotPermitted")
-    @XmlElement(name = "schema")
-    @JsonProperty("schemasNotPermitted")
     public List<String> getSchemasNotPermitted() {
         return schemasNotPermitted;
     }
 
-    @XmlElementWrapper(name = "suffixesNotPermitted")
-    @XmlElement(name = "suffix")
-    @JsonProperty("suffixesNotPermitted")
     public List<String> getSuffixesNotPermitted() {
         return suffixesNotPermitted;
     }

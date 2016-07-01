@@ -24,18 +24,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.apache.commons.collections4.IterableUtils;
 import org.apache.commons.collections4.Predicate;
-import org.apache.syncope.common.lib.jaxb.XmlGenericMapAdapter;
 import org.apache.syncope.common.lib.to.TypeExtensionTO;
 
-@XmlRootElement(name = "groupPatch")
-@XmlType
 public class GroupPatch extends AnyPatch {
 
     private static final long serialVersionUID = -460284378124440077L;
@@ -48,7 +40,6 @@ public class GroupPatch extends AnyPatch {
 
     private String udynMembershipCond;
 
-    @XmlJavaTypeAdapter(XmlGenericMapAdapter.class)
     @JsonIgnore
     private final Map<String, String> adynMembershipConds = new HashMap<>();
 
@@ -102,9 +93,6 @@ public class GroupPatch extends AnyPatch {
         });
     }
 
-    @XmlElementWrapper(name = "typeExtensions")
-    @XmlElement(name = "typeExtension")
-    @JsonProperty("typeExtensions")
     public List<TypeExtensionTO> getTypeExtensions() {
         return typeExtensions;
     }

@@ -36,35 +36,15 @@ under the License.
 
   <context:component-scan base-package="org.apache.syncope.core.rest.cxf.service"/>  
 
-  <bean id="jaxbProvider" class="org.apache.cxf.jaxrs.provider.JAXBElementProvider">
-    <property name="namespacePrefixes">
-      <map>
-        <entry key="http://syncope.apache.org/2.0">
-          <value>syncope</value>
-        </entry>
-      </map>      
-    </property>
-    <property name="depthProperties">
-      <bean id="depthProperties" class="org.apache.cxf.staxutils.DocumentDepthProperties">
-        <property name="innerElementCountThreshold" value="500"/>
-      </bean>
-    </property>
-    <property name="collectionWrapperMap">
-      <map>
-        <entry>
-          <key>
-            <value>org.apache.syncope.common.lib.policy.AbstractPolicyTO</value>
-          </key>
-          <value>policies</value>
-        </entry>
-      </map>
-    </property>
-  </bean>
-
   <bean id="dateParamConverterProvider" class="org.apache.syncope.common.rest.api.DateParamConverterProvider"/>
 
-  <bean id="jacksonObjectMapper" class="org.apache.syncope.core.rest.cxf.UnwrappedObjectMapper"/>
-  <bean id="jsonProvider" class="com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider">
+  <bean id="jacksonXmlMapper" class="org.apache.syncope.common.lib.jackson.UnwrappedXmlMapper"/>
+  <bean id="xmlProvider" class="org.apache.syncope.core.rest.cxf.JacksonXMLProvider">
+    <property name="mapper" ref="jacksonXmlMapper"/>
+  </bean>
+
+  <bean id="jacksonObjectMapper" class="org.apache.syncope.common.lib.jackson.UnwrappedObjectMapper"/>
+  <bean id="jsonProvider" class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider">
     <property name="mapper" ref="jacksonObjectMapper"/>
   </bean>
 
@@ -91,9 +71,8 @@ under the License.
   
   <bean id="wadlGenerator" class="org.apache.syncope.core.rest.cxf.WadlGenerator">
     <property name="applicationTitle" value="Apache Syncope ${syncope.version}"/>
-    <property name="namespacePrefix" value="syncope"/>
     <property name="linkAnyMediaTypeToXmlSchema" value="true"/>
-    <property name="useJaxbContextForQnames" value="true"/>
+    <property name="useJaxbContextForQnames" value="false"/>
     <property name="addResourceAndMethodIds" value="true"/>
     <property name="ignoreMessageWriters" value="true"/>
     <property name="usePathParamsToCompareOperations" value="false"/>
@@ -130,7 +109,7 @@ under the License.
     </jaxrs:outInterceptors>
     <jaxrs:providers>
       <ref bean="dateParamConverterProvider"/>
-      <ref bean="jaxbProvider"/>
+      <ref bean="xmlProvider"/>
       <ref bean="jsonProvider"/>
       <ref bean="exceptionMapper"/>
       <ref bean="searchContextProvider"/>
