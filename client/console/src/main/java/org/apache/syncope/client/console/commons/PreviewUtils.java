@@ -20,8 +20,8 @@ package org.apache.syncope.client.console.commons;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.syncope.client.console.SyncopeConsoleApplication;
-import org.apache.syncope.client.console.init.ClassPathScanImplementationLookup;
 import org.apache.syncope.client.console.init.ConsoleInitializer;
+import org.apache.syncope.client.console.init.ImplementationLookup;
 import org.apache.syncope.client.console.wicket.markup.html.form.preview.AbstractBinaryPreviewer;
 import org.apache.syncope.client.console.wicket.markup.html.form.preview.DefaultPreviewer;
 import org.springframework.util.ClassUtils;
@@ -32,10 +32,10 @@ public final class PreviewUtils {
         return new PreviewUtils();
     }
 
-    private final ClassPathScanImplementationLookup classPathScanImplementationLookup;
+    private final ImplementationLookup classPathScanImplementationLookup;
 
     private PreviewUtils() {
-        classPathScanImplementationLookup = (ClassPathScanImplementationLookup) SyncopeConsoleApplication.get().
+        classPathScanImplementationLookup = (ImplementationLookup) SyncopeConsoleApplication.get().
                 getServletContext().getAttribute(ConsoleInitializer.CLASSPATH_LOOKUP);
     }
 

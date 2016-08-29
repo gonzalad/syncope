@@ -1,0 +1,154 @@
+/*
+ * Copyright 2016 The Apache Software Foundation.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.syncope.client.console.init;
+
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import org.apache.commons.collections4.ComparatorUtils;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.syncope.client.console.annotations.BinaryPreview;
+import org.apache.syncope.client.console.annotations.ExtPage;
+import org.apache.syncope.client.console.annotations.ExtWidget;
+import org.apache.syncope.client.console.pages.BaseExtPage;
+import org.apache.syncope.client.console.pages.BasePage;
+import org.apache.syncope.client.console.wicket.markup.html.form.preview.AbstractBinaryPreviewer;
+import org.apache.syncope.client.console.widgets.BaseExtWidget;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ *
+ * @author agonzalez
+ */
+public abstract class ImplementationLookupSupport implements ImplementationLookup {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ImplementationLookupSupport.class);
+
+    private List<Class<? extends BasePage>> pages;
+
+    private List<Class<? extends AbstractBinaryPreviewer>> previewers;
+
+    private List<Class<? extends BaseExtPage>> extPages;
+
+    private List<Class<? extends BaseExtWidget>> extWidgets;
+
+    protected abstract List<Class<?>> scan();
+    
+    @SuppressWarnings("unchecked")
+    public void load() {
+        pages = new ArrayList<>();
+        previewers = new ArrayList<>();
+        extPages = new ArrayList<>();
+        extWidgets = new ArrayList<>();
+        List<Class<?>> scannedClasses = scan();
+        for (Class<?> clazz : scannedClasses) {
+            try {
+                boolean isAbsractClazz = Modifier.isAbstract(clazz.getModifiers());
+
+                if (!isAbsractClazz) {
+                    if (BaseExtPage.class.isAssignableFrom(clazz)) {
+                        if (clazz.isAnnotationPresent(ExtPage.class)) {
+                            extPages.add((Class<? extends BaseExtPage>) clazz);
+                        } else {
+                            LOG.error("Could not find annotation {} in {}, ignoring",
+                                    ExtPage.class.getName(), clazz.getName());
+                        }
+                    } else if (BaseExtWidget.class.isAssignableFrom(clazz)) {
+                        if (clazz.isAnnotationPresent(ExtWidget.class)) {
+                            extWidgets.add((Class<? extends BaseExtWidget>) clazz);
+                        } else {
+                            LOG.error("Could not find annotation {} in {}, ignoring",
+                                    ExtWidget.class.getName(), clazz.getName());
+                        }
+                    } else if (BasePage.class.isAssignableFrom(clazz)) {
+                        pages.add((Class<? extends BasePage>) clazz);
+                    } else if (AbstractBinaryPreviewer.class.isAssignableFrom(clazz)) {
+                        previewers.add((Class<? extends AbstractBinaryPreviewer>) clazz);
+                    }
+                }
+            } catch (Throwable t) {
+                LOG.warn("Could not inspect class {}", clazz.getName(), t);
+            }
+        }
+        pages = Collections.unmodifiableList(pages);
+        previewers = Collections.unmodifiableList(previewers);
+
+        Collections.sort(extPages, new Comparator<Class<? extends BaseExtPage>>() {
+
+            @Override
+            public int compare(
+                    final Class<? extends BaseExtPage> o1,
+                    final Class<? extends BaseExtPage> o2) {
+
+                return ComparatorUtils.<Integer>naturalComparator().compare(
+                        o1.getAnnotation(ExtPage.class).priority(),
+                        o2.getAnnotation(ExtPage.class).priority());
+            }
+        });
+        extPages = Collections.unmodifiableList(extPages);
+
+        Collections.sort(extWidgets, new Comparator<Class<? extends BaseExtWidget>>() {
+
+            @Override
+            public int compare(
+                    final Class<? extends BaseExtWidget> o1,
+                    final Class<? extends BaseExtWidget> o2) {
+
+                return ComparatorUtils.<Integer>naturalComparator().compare(
+                        o1.getAnnotation(ExtWidget.class).priority(),
+                        o2.getAnnotation(ExtWidget.class).priority());
+            }
+        });
+        extWidgets = Collections.unmodifiableList(extWidgets);
+
+        LOG.debug("Binary previewers found: {}", previewers);
+        LOG.debug("Extension pages found: {}", extPages);
+        LOG.debug("Extension widgets found: {}", extWidgets);
+    }
+
+    public Class<? extends AbstractBinaryPreviewer> getPreviewerClass(final String mimeType) {
+        LOG.debug("Searching for previewer class for MIME type: {}", mimeType);
+        Class<? extends AbstractBinaryPreviewer> previewer = null;
+        for (Class<? extends AbstractBinaryPreviewer> candidate : previewers) {
+            LOG.debug("Evaluating previewer class {} for MIME type {}", candidate.getName(), mimeType);
+            if (candidate.isAnnotationPresent(BinaryPreview.class)
+                    && ArrayUtils.contains(candidate.getAnnotation(BinaryPreview.class).mimeTypes(), mimeType)) {
+                LOG.debug("Found existing previewer for MIME type {}: {}", mimeType, candidate.getName());
+                previewer = candidate;
+            }
+        }
+        return previewer;
+    }
+
+    public List<Class<? extends BasePage>> getPageClasses() {
+        return pages;
+    }
+
+    public List<Class<? extends AbstractBinaryPreviewer>> getPreviewerClasses() {
+        return previewers;
+    }
+
+    public List<Class<? extends BaseExtPage>> getExtPageClasses() {
+        return extPages;
+    }
+
+    public List<Class<? extends BaseExtWidget>> getExtWidgetClasses() {
+        return extWidgets;
+    }
+}

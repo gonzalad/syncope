@@ -38,7 +38,7 @@ public class ConsoleInitializer implements ServletContextListener {
 
     @Override
     public void contextInitialized(final ServletContextEvent sce) {
-        ClassPathScanImplementationLookup lookup = new ClassPathScanImplementationLookup();
+        StaticListImplementationLookup lookup = new StaticListImplementationLookup();
         lookup.load();
         sce.getServletContext().setAttribute(CLASSPATH_LOOKUP, lookup);
 

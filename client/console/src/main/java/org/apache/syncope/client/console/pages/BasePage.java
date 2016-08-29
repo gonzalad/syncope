@@ -27,8 +27,8 @@ import org.apache.syncope.client.console.SyncopeConsoleSession;
 import org.apache.syncope.client.console.annotations.ExtPage;
 import org.apache.syncope.client.console.commons.Constants;
 import org.apache.syncope.client.console.commons.HttpResourceStream;
-import org.apache.syncope.client.console.init.ClassPathScanImplementationLookup;
 import org.apache.syncope.client.console.init.ConsoleInitializer;
+import org.apache.syncope.client.console.init.ImplementationLookup;
 import org.apache.syncope.client.console.panels.NotificationPanel;
 import org.apache.syncope.client.console.rest.ConfigurationRestClient;
 import org.apache.syncope.client.console.topology.Topology;
@@ -298,8 +298,8 @@ public class BasePage extends WebPage implements IAjaxIndicatorAware {
         }
 
         // Extensions
-        ClassPathScanImplementationLookup classPathScanImplementationLookup =
-                (ClassPathScanImplementationLookup) SyncopeConsoleApplication.get().
+        ImplementationLookup classPathScanImplementationLookup =
+                (ImplementationLookup) SyncopeConsoleApplication.get().
                 getServletContext().getAttribute(ConsoleInitializer.CLASSPATH_LOOKUP);
         List<Class<? extends BaseExtPage>> extPageClasses = classPathScanImplementationLookup.getExtPageClasses();
 

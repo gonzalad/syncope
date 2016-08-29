@@ -18,156 +18,41 @@
  */
 package org.apache.syncope.client.console.init;
 
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import org.apache.commons.collections4.ComparatorUtils;
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.syncope.client.console.pages.BaseExtPage;
-import org.apache.syncope.client.console.annotations.BinaryPreview;
-import org.apache.syncope.client.console.annotations.ExtPage;
-import org.apache.syncope.client.console.annotations.ExtWidget;
-import org.apache.syncope.client.console.pages.BasePage;
-import org.apache.syncope.client.console.wicket.markup.html.form.preview.AbstractBinaryPreviewer;
-import org.apache.syncope.client.console.widgets.BaseExtWidget;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
-import org.springframework.core.type.filter.AssignableTypeFilter;
 import org.springframework.util.ClassUtils;
 
-public class ClassPathScanImplementationLookup {
+public class ClassPathScanImplementationLookup extends ImplementationLookupSupport {
 
     private static final Logger LOG = LoggerFactory.getLogger(ClassPathScanImplementationLookup.class);
-
-    private List<Class<? extends BasePage>> pages;
-
-    private List<Class<? extends AbstractBinaryPreviewer>> previewers;
-
-    private List<Class<? extends BaseExtPage>> extPages;
-
-    private List<Class<? extends BaseExtWidget>> extWidgets;
     
     private List<String> basePackages = Arrays.asList("org.apache.syncope.client.console");
 
-    @SuppressWarnings("unchecked")
-    public void load() {
-        pages = new ArrayList<>();
-        previewers = new ArrayList<>();
-        extPages = new ArrayList<>();
-        extWidgets = new ArrayList<>();
-
+    @Override
+    public List<Class<?>> scan() {
         ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(false);
-        scanner.addIncludeFilter(new AssignableTypeFilter(BasePage.class));
-        scanner.addIncludeFilter(new AssignableTypeFilter(AbstractBinaryPreviewer.class));
-        scanner.addIncludeFilter(new AssignableTypeFilter(BaseExtPage.class));
-        scanner.addIncludeFilter(new AssignableTypeFilter(BaseExtWidget.class));
-
+        List<Class<?>> scannedClasses = new ArrayList<>();
         Set<BeanDefinition> beanDefinitions = new HashSet<>();
-        for (String basePackage: getBasePackages()) {
+        for (String basePackage : getBasePackages()) {
             beanDefinitions.addAll(scanner.findCandidateComponents(basePackage));
         }
         for (BeanDefinition bd : beanDefinitions) {
             try {
                 Class<?> clazz = ClassUtils.resolveClassName(
                         bd.getBeanClassName(), ClassUtils.getDefaultClassLoader());
-                boolean isAbsractClazz = Modifier.isAbstract(clazz.getModifiers());
-
-                if (!isAbsractClazz) {
-                    if (BaseExtPage.class.isAssignableFrom(clazz)) {
-                        if (clazz.isAnnotationPresent(ExtPage.class)) {
-                            extPages.add((Class<? extends BaseExtPage>) clazz);
-                        } else {
-                            LOG.error("Could not find annotation {} in {}, ignoring",
-                                    ExtPage.class.getName(), clazz.getName());
-                        }
-                    } else if (BaseExtWidget.class.isAssignableFrom(clazz)) {
-                        if (clazz.isAnnotationPresent(ExtWidget.class)) {
-                            extWidgets.add((Class<? extends BaseExtWidget>) clazz);
-                        } else {
-                            LOG.error("Could not find annotation {} in {}, ignoring",
-                                    ExtWidget.class.getName(), clazz.getName());
-                        }
-                    } else if (BasePage.class.isAssignableFrom(clazz)) {
-                        pages.add((Class<? extends BasePage>) clazz);
-                    } else if (AbstractBinaryPreviewer.class.isAssignableFrom(clazz)) {
-                        previewers.add((Class<? extends AbstractBinaryPreviewer>) clazz);
-                    }
-                }
+                scannedClasses.add(clazz);
             } catch (Throwable t) {
                 LOG.warn("Could not inspect class {}", bd.getBeanClassName(), t);
             }
         }
-        pages = Collections.unmodifiableList(pages);
-        previewers = Collections.unmodifiableList(previewers);
-
-        Collections.sort(extPages, new Comparator<Class<? extends BaseExtPage>>() {
-
-            @Override
-            public int compare(
-                    final Class<? extends BaseExtPage> o1,
-                    final Class<? extends BaseExtPage> o2) {
-
-                return ComparatorUtils.<Integer>naturalComparator().compare(
-                        o1.getAnnotation(ExtPage.class).priority(),
-                        o2.getAnnotation(ExtPage.class).priority());
-            }
-        });
-        extPages = Collections.unmodifiableList(extPages);
-
-        Collections.sort(extWidgets, new Comparator<Class<? extends BaseExtWidget>>() {
-
-            @Override
-            public int compare(
-                    final Class<? extends BaseExtWidget> o1,
-                    final Class<? extends BaseExtWidget> o2) {
-
-                return ComparatorUtils.<Integer>naturalComparator().compare(
-                        o1.getAnnotation(ExtWidget.class).priority(),
-                        o2.getAnnotation(ExtWidget.class).priority());
-            }
-        });
-        extWidgets = Collections.unmodifiableList(extWidgets);
-
-        LOG.debug("Binary previewers found: {}", previewers);
-        LOG.debug("Extension pages found: {}", extPages);
-        LOG.debug("Extension widgets found: {}", extWidgets);
-    }
-
-    public Class<? extends AbstractBinaryPreviewer> getPreviewerClass(final String mimeType) {
-        LOG.debug("Searching for previewer class for MIME type: {}", mimeType);
-        Class<? extends AbstractBinaryPreviewer> previewer = null;
-        for (Class<? extends AbstractBinaryPreviewer> candidate : previewers) {
-            LOG.debug("Evaluating previewer class {} for MIME type {}", candidate.getName(), mimeType);
-            if (candidate.isAnnotationPresent(BinaryPreview.class)
-                    && ArrayUtils.contains(candidate.getAnnotation(BinaryPreview.class).mimeTypes(), mimeType)) {
-                LOG.debug("Found existing previewer for MIME type {}: {}", mimeType, candidate.getName());
-                previewer = candidate;
-            }
-        }
-        return previewer;
-    }
-
-    public List<Class<? extends BasePage>> getPageClasses() {
-        return pages;
-    }
-
-    public List<Class<? extends AbstractBinaryPreviewer>> getPreviewerClasses() {
-        return previewers;
-    }
-
-    public List<Class<? extends BaseExtPage>> getExtPageClasses() {
-        return extPages;
-    }
-
-    public List<Class<? extends BaseExtWidget>> getExtWidgetClasses() {
-        return extWidgets;
+        return scannedClasses;
     }
     
     /**

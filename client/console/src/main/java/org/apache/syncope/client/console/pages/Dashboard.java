@@ -22,8 +22,8 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.tabs.AjaxBootstrapTabbed
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.syncope.client.console.SyncopeConsoleApplication;
-import org.apache.syncope.client.console.init.ClassPathScanImplementationLookup;
 import org.apache.syncope.client.console.init.ConsoleInitializer;
+import org.apache.syncope.client.console.init.ImplementationLookup;
 import org.apache.syncope.client.console.panels.DashboardControlPanel;
 import org.apache.syncope.client.console.panels.DashboardExtensionsPanel;
 import org.apache.syncope.client.console.panels.DashboardOverviewPanel;
@@ -71,8 +71,8 @@ public class Dashboard extends BasePage {
             }
         });
 
-        ClassPathScanImplementationLookup classPathScanImplementationLookup =
-                (ClassPathScanImplementationLookup) SyncopeConsoleApplication.get().
+        ImplementationLookup classPathScanImplementationLookup =
+                (ImplementationLookup) SyncopeConsoleApplication.get().
                 getServletContext().getAttribute(ConsoleInitializer.CLASSPATH_LOOKUP);
         final List<Class<? extends BaseExtWidget>> extWidgetClasses =
                 classPathScanImplementationLookup.getExtWidgetClasses();

@@ -36,8 +36,8 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.syncope.client.console.init.ClassPathScanImplementationLookup;
 import org.apache.syncope.client.console.init.ConsoleInitializer;
+import org.apache.syncope.client.console.init.ImplementationLookup;
 import org.apache.syncope.client.console.pages.BasePage;
 import org.apache.syncope.client.console.pages.Dashboard;
 import org.apache.syncope.client.console.pages.MustChangePassword;
@@ -182,7 +182,7 @@ public class SyncopeConsoleApplication extends AuthenticatedWebApplication {
 
         getSecuritySettings().setAuthorizationStrategy(new MetaDataRoleAuthorizationStrategy(this));
 
-        ClassPathScanImplementationLookup lookup = (ClassPathScanImplementationLookup) getServletContext().
+        ImplementationLookup lookup = (ImplementationLookup) getServletContext().
                 getAttribute(ConsoleInitializer.CLASSPATH_LOOKUP);
         for (Class<? extends BasePage> clazz : lookup.getPageClasses()) {
             MetaDataRoleAuthorizationStrategy.authorize(clazz, SyncopeConsoleSession.AUTHENTICATED);
